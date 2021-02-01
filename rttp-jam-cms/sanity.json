@@ -1,27 +1,40 @@
 {
   "root": true,
-  "project": {
-    "name": "RTTP Jam"
-  },
   "api": {
     "projectId": "vo995g7g",
     "dataset": "production"
+  },
+  "project": {
+    "name": "RTTP Jam"
   },
   "plugins": [
     "@sanity/base",
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "@sanity/dashboard",
+    "dashboard-widget-gatsby",
+    "graph-view",
+    "content-calendar",
+    "@sanity/color-input",
+    "@sanity/code-input",
+    "markdown",
+    "latex-input"
   ],
   "env": {
     "development": {
       "plugins": [
-        "@sanity/vision"
+        "@sanity/vision",
+        "@andre-brdoch/sanity-plugin-schema-inspector"
       ]
     }
   },
   "parts": [
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "./dashboardConfig.js"
+    },
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"

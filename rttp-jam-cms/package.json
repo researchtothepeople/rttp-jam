@@ -8,6 +8,9 @@
     "start": "sanity start",
     "test": "sanity check"
   },
+  "comments": {
+    "yarn.lock": "Apparently, `sanity install` uses yarn to install the packages, hence the two lock files."
+  },
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
@@ -24,22 +27,32 @@
     "semi": false
   },
   "dependencies": {
+    "@andre-brdoch/sanity-plugin-schema-inspector": "^1.1.0",
     "@sanity/base": "^2.1.6",
+    "@sanity/code-input": "^2.1.4",
+    "@sanity/color-input": "^2.1.4",
     "@sanity/components": "^2.1.4",
     "@sanity/core": "^2.1.4",
+    "@sanity/dashboard": "^2.1.4",
     "@sanity/default-layout": "^2.1.6",
     "@sanity/default-login": "^2.1.4",
     "@sanity/desk-tool": "^2.1.6",
     "@sanity/vision": "^2.1.4",
     "prop-types": "^15.6",
     "react": "^16.2",
-    "react-dom": "^16.2"
+    "react-dom": "^16.2",
+    "react-icons": "^4.1.0",
+    "sanity-plugin-content-calendar": "^1.1.0",
+    "sanity-plugin-dashboard-widget-gatsby": "^1.0.9",
+    "sanity-plugin-graph-view": "^1.0.4",
+    "sanity-plugin-latex-input": "^1.0.1",
+    "sanity-plugin-markdown": "^1.0.1"
   },
   "devDependencies": {
     "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1"
