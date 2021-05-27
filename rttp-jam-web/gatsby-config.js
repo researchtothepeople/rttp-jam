@@ -10,8 +10,8 @@ module.exports = {
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: "vo995g7g",
-        dataset: "production",
+        projectId: process.env.SANITY_PROJECT_ID,
+        dataset: process.env.SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
         watchMode: process.env.NODE_ENV === "development" || false,
         overlayDrafts: process.env.NODE_ENV === "development" || false,
