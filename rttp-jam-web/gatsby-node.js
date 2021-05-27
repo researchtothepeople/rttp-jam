@@ -25,7 +25,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
       path: `/cases/${node.studyCase.slug.current}/results/${node.slug.current}`,
       component: path.resolve(`src/templates/Repository.js`),
       context: {
-        studyCaseId: node.studyCase._id,
+        studyCaseId: node.studyCase._id || "",
         repositoryId: node._id,
       },
     })

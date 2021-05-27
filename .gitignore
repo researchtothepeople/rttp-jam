@@ -109,6 +109,9 @@ public
 .vscode-test
 *.code-workspace
 
+# Paw client file
+.paw
+
 # yarn v2
 .yarn/cache
 .yarn/unplugged

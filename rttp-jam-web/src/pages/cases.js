@@ -20,6 +20,7 @@ const Cases = ({ data }) => {
       <h1>Cases & Results</h1>
       {data.studyCases.nodes.map((studyCase) => (
         <div
+          key={studyCase._id}
           css={css`
             border-top: 1px solid #eee;
             padding: 1rem 0 2rem;
@@ -46,21 +47,20 @@ const Cases = ({ data }) => {
               .filter(
                 (repository) => repository.studyCase._id === studyCase._id
               )
-              .map((repository) => {
-                return (
-                  <div
-                    css={css`
-                      padding: 1rem 0;
-                    `}
+              .map((repository) => (
+                <div
+                  key={repository._id}
+                  css={css`
+                    padding: 1rem 0;
+                  `}
+                >
+                  <Link
+                    to={`${studyCase.slug.current}/results/${repository.slug.current}`}
                   >
-                    <Link
-                      to={`${studyCase.slug.current}/results/${repository.slug.current}`}
-                    >
-                      {repository.projectTitle}
-                    </Link>
-                  </div>
-                )
-              })}
+                    {repository.projectTitle}
+                  </Link>
+                </div>
+              ))}
           </div>
         </div>
       ))}
