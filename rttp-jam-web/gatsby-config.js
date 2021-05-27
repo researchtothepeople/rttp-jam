@@ -7,6 +7,7 @@ module.exports = {
     title: "RTTP Jam",
   },
   plugins: [
+    `gatsby-plugin-gatsby-cloud`,
     {
       resolve: "gatsby-source-sanity",
       options: {

@@ -34,6 +34,7 @@
     "@sanity/client": "^2.1.4",
     "gatsby": "^3.5.1",
     "gatsby-plugin-emotion": "^6.5.0",
+    "gatsby-plugin-gatsby-cloud": "^2.6.1",
     "gatsby-plugin-google-analytics": "^3.5.0",
     "gatsby-plugin-image": "^1.5.0",
     "gatsby-plugin-manifest": "^3.5.0",
