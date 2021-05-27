@@ -14,7 +14,6 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/dashboard",
-    "dashboard-widget-gatsby",
     "graph-view",
     "content-calendar",
     "@sanity/color-input",
@@ -24,10 +23,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision",
-        "@andre-brdoch/sanity-plugin-schema-inspector"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [

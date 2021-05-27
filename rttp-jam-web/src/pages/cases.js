@@ -1,7 +1,7 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
 
-export default ({ data }) => {
+const Cases = ({ data }) => {
   return (
     <main
       css={css`
@@ -95,3 +95,5 @@ export const query = graphql`
     }
   }
 `
+
+export default Cases

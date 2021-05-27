@@ -2,7 +2,7 @@ import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
 import BlockContent from "@sanity/block-content-to-react"
 
-export default ({ data: { repository } }) => {
+const Repository = ({ data: { repository } }) => {
   console.log(repository.description)
   return (
     <main
@@ -84,7 +84,7 @@ export default ({ data: { repository } }) => {
 }
 
 export const query = graphql`
-  query($repositoryId: String!) {
+  query ($repositoryId: String!) {
     repository: sanityRepository(_id: { eq: $repositoryId }) {
       name
       projectTitle
@@ -105,3 +105,4 @@ export const query = graphql`
     }
   }
 `
+export default Repository
