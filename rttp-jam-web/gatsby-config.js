@@ -13,8 +13,8 @@ module.exports = {
         projectId: "vo995g7g",
         dataset: "production",
         token: process.env.SANITY_TOKEN,
-        watchMode: true,
-        overlayDrafts: true,
+        watchMode: process.env.NODE_ENV === "development" || false,
+        overlayDrafts: process.env.NODE_ENV === "development" || false,
       },
     },
     "gatsby-plugin-emotion",
@@ -27,7 +27,7 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sitemap",
+    // "gatsby-plugin-sitemap",
     {
       resolve: "gatsby-plugin-manifest",
       options: {

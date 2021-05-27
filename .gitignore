@@ -110,7 +110,7 @@ public
 *.code-workspace
 
 # Paw client file
-.paw
+*.paw
 
 # yarn v2
 .yarn/cache
