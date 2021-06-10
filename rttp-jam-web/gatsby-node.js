@@ -3,7 +3,29 @@ const path = require(`path`)
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const res = await graphql(`
     {
+      studyCases: allSanityStudyCase {
+        nodes {
+          _id
+          slug {
+            current
+          }
+        }
+      }
       repositories: allSanityRepository {
+        nodes {
+          _id
+          slug {
+            current
+          }
+          studyCase {
+            _id
+            slug {
+              current
+            }
+          }
+        }
+      }
+      notes: allSanityNote {
         nodes {
           _id
           slug {
@@ -20,13 +42,32 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     }
   `)
 
-  res.data.repositories.nodes.forEach((node) => {
+  res.data.studyCases.nodes.forEach((studyCase) => {
     createPage({
-      path: `/cases/${node.studyCase.slug.current}/results/${node.slug.current}`,
+      path: `/cases/${studyCase.slug.current}`,
+      component: path.resolve(`src/templates/Case.js`),
+      context: {
+        studyCaseId: studyCase._id,
+      },
+    })
+  })
+
+  res.data.repositories.nodes.forEach((repository) => {
+    createPage({
+      path: `/cases/${repository.studyCase.slug.current}/results/${repository.slug.current}`,
       component: path.resolve(`src/templates/Repository.js`),
       context: {
-        studyCaseId: node.studyCase._id || "",
-        repositoryId: node._id,
+        repositoryId: repository._id,
+      },
+    })
+  })
+
+  res.data.notes.nodes.forEach((note) => {
+    createPage({
+      path: `/cases/${note.studyCase.slug.current}/notes/${note.slug.current}`,
+      component: path.resolve(`src/templates/Note.js`),
+      context: {
+        noteId: note._id,
       },
     })
   })

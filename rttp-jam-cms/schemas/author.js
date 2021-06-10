@@ -24,11 +24,11 @@ export default {
       title: "Email",
       type: "string",
     },
-    {
-      name: "photo",
-      title: "Photo",
-      type: "image",
-    },
+    // {
+    //   name: "photo",
+    //   title: "Photo",
+    //   type: "image",
+    // },
   ],
   preview: {
     select: {
@@ -36,14 +36,12 @@ export default {
       role: "role",
       affiliation: "affiliation",
       email: "email",
-      media: "photo",
     },
-    prepare: ({ name, role, affiliation, email, media }) => {
+    prepare: ({ name, role, affiliation, email }) => {
       const subtitle = [role, affiliation, email].filter((i) => i).join(" — ")
       return {
         title: name,
         subtitle,
-        media,
       }
     },
   },

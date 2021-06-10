@@ -42,26 +42,6 @@ const Cases = ({ data }) => {
             </h2>
             <Link to={studyCase.slug.current}>Case Detail</Link>
           </div>
-          <div>
-            {data.repositories.nodes
-              .filter(
-                (repository) => repository.studyCase._id === studyCase._id
-              )
-              .map((repository) => (
-                <div
-                  key={repository._id}
-                  css={css`
-                    padding: 1rem 0;
-                  `}
-                >
-                  <Link
-                    to={`${studyCase.slug.current}/results/${repository.slug.current}`}
-                  >
-                    {repository.projectTitle}
-                  </Link>
-                </div>
-              ))}
-          </div>
         </div>
       ))}
     </main>
@@ -78,19 +58,6 @@ export const query = graphql`
           current
         }
         _id
-      }
-    }
-    repositories: allSanityRepository {
-      nodes {
-        _id
-        name
-        projectTitle
-        slug {
-          current
-        }
-        studyCase {
-          _id
-        }
       }
     }
   }

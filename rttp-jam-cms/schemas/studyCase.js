@@ -1,7 +1,10 @@
+import { RiContactsBook2Fill } from "react-icons/ri"
+
 export default {
   name: "studyCase",
   title: "Study Cases",
   type: "document",
+  icon: RiContactsBook2Fill,
   fields: [
     {
       name: "name",

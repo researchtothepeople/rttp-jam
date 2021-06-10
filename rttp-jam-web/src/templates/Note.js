@@ -2,8 +2,7 @@ import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
 import BlockContent from "@sanity/block-content-to-react"
 
-const Repository = ({ data: { repository } }) => {
-  console.log(repository.description)
+const Note = ({ data: { note } }) => {
   return (
     <main
       css={css`
@@ -28,10 +27,10 @@ const Repository = ({ data: { repository } }) => {
       >
         <Link to="/cases">Cases</Link>
         {" / "}
-        <Link to={"/cases/" + repository.studyCase.slug.current}>
-          {repository.studyCase.name}: {repository.studyCase.topic}
+        <Link to={"/cases/" + note.studyCase.slug.current}>
+          {note.studyCase.name}: {note.studyCase.topic}
         </Link>
-        {" / Results"}
+        {" / Notes"}
       </div>
       <div
         css={css`
@@ -45,18 +44,17 @@ const Repository = ({ data: { repository } }) => {
             line-height: 1.2;
           `}
         >
-          {repository.projectTitle}
+          {note.title}
         </h1>
         <div
           css={css`
             border-left: 1px solid #eee;
             padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 24px;
             margin-left: 24px;
+            padding-left: 24px;
           `}
         >
-          {repository.authors.map((author) => (
+          {note.authors.map((author) => (
             <div key={author.name}>
               {author.name}
               <span
@@ -69,33 +67,28 @@ const Repository = ({ data: { repository } }) => {
               </span>
             </div>
           ))}
+          <div>
+            {new Date(note.date).toLocaleDateString([], {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </div>
         </div>
       </div>
-      <div
-        css={css`
-          padding: 1rem 0;
-          border-top: 1px solid #eee;
-          border-bottom: 1px solid #eee;
-        `}
-      >
-        <a href={repository.repositoryUrl}>{repository.repositoryUrl}</a>
-      </div>
-      <BlockContent blocks={repository._rawDescription} />
+      <BlockContent blocks={note._rawBody} />
     </main>
   )
 }
 
 export const query = graphql`
-  query ($repositoryId: String!) {
-    repository: sanityRepository(_id: { eq: $repositoryId }) {
-      name
-      projectTitle
+  query ($noteId: String!) {
+    note: sanityNote(_id: { eq: $noteId }) {
+      title
       authors {
         name
         affiliation
       }
-      repositoryUrl
-      teamAffiliation
       studyCase {
         name
         topic
@@ -103,8 +96,9 @@ export const query = graphql`
           current
         }
       }
-      _rawDescription
+      date
+      _rawBody
     }
   }
 `
-export default Repository
+export default Note
