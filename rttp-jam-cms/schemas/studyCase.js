@@ -1,10 +1,10 @@
-import { RiContactsBook2Fill } from "react-icons/ri"
+import { RiContactsBook2Fill as icon } from "react-icons/ri"
 
 export default {
   name: "studyCase",
   title: "Study Cases",
   type: "document",
-  icon: RiContactsBook2Fill,
+  icon,
   fields: [
     {
       name: "name",
@@ -21,7 +21,7 @@ export default {
       name: "slug",
       title: "Slug",
       description:
-        "A unique id that will be used for the URL. You might want to abbreviate some words to keep it short, like “Neurofibromatosis Type 2” to “nf”.",
+        "A unique id that will be used for the URL. You might want to abbreviate some words to keep it short, like “Neurofibromatosis Type 2” to “nf2”.",
       type: "slug",
       validation: (Rule) => Rule.required(),
       options: {
@@ -31,14 +31,22 @@ export default {
     {
       name: "photo",
       title: "Photo",
-      description: "Profile photo of the person.",
+      description: "Profile photo of the person, if available.",
       type: "image",
     },
     {
       name: "time",
       title: "Time Span",
       type: "string",
-      description: "E.g., Fall 2020",
+      description: "Visible to users. E.g., Fall 2020",
+    },
+    {
+      name: "launchDate",
+      title: "Launch Date",
+      type: "date",
+      description: "For sorting.",
+      validation: (Rule) => Rule.required(),
+      initialValue: () => new Date().toISOString().substring(0, 10),
     },
     {
       name: "originalCaseUrl",
@@ -82,6 +90,18 @@ export default {
     //     },
     //   ],
     // },
+  ],
+  orderings: [
+    {
+      title: "Launch Date",
+      name: "launchDateDesc",
+      by: [{ field: "launchDate", direction: "desc" }],
+    },
+    {
+      title: "A–Z",
+      name: "nameAsc",
+      by: [{ field: "name", direction: "asc" }],
+    },
   ],
   preview: {
     select: {

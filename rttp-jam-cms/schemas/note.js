@@ -1,10 +1,10 @@
-import { RiStickyNoteFill } from "react-icons/ri"
+import { RiStickyNoteFill as icon } from "react-icons/ri"
 
 export default {
   name: "note",
   title: "Notes",
   type: "document",
-  icon: RiStickyNoteFill,
+  icon,
   fields: [
     {
       name: "title",

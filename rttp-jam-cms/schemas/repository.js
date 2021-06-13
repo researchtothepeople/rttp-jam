@@ -1,10 +1,10 @@
-import { RiNewspaperFill } from "react-icons/ri"
+import { RiNewspaperFill as icon } from "react-icons/ri"
 
 export default {
   name: "repository",
   title: "Repositories",
   type: "document",
-  icon: RiNewspaperFill,
+  icon,
   fields: [
     {
       name: "repositoryUrl",
