@@ -1,9 +1,9 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
-import BlockContent from "@sanity/block-content-to-react"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 const Repository = ({ data: { repository } }) => {
-  console.log(repository.description)
   return (
     <main
       css={css`
@@ -16,6 +16,9 @@ const Repository = ({ data: { repository } }) => {
         a {
           color: #0466c8;
           text-decoration: none;
+        }
+        img {
+          max-width: 100%;
         }
       `}
     >
@@ -80,7 +83,10 @@ const Repository = ({ data: { repository } }) => {
       >
         <a href={repository.repositoryUrl}>{repository.repositoryUrl}</a>
       </div>
-      <BlockContent blocks={repository._rawDescription} />
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        children={repository.description}
+      />
     </main>
   )
 }
@@ -103,7 +109,7 @@ export const query = graphql`
           current
         }
       }
-      _rawDescription
+      description
     }
   }
 `

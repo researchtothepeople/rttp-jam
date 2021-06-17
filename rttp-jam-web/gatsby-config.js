@@ -14,8 +14,16 @@ module.exports = {
         projectId: process.env.SANITY_PROJECT_ID,
         dataset: process.env.SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
-        watchMode: process.env.NODE_ENV === "development" || false,
-        overlayDrafts: process.env.NODE_ENV === "development" || false,
+        watchMode: process.env.NODE_ENV === "development",
+        overlayDrafts: process.env.NODE_ENV === "development",
+        useCdn: !process.env.NODE_ENV === "development",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-sanity-image",
+      options: {
+        projectId: process.env.SANITY_PROJECT_ID,
+        dataset: process.env.SANITY_DATASET,
       },
     },
     "gatsby-plugin-emotion",
@@ -35,7 +43,6 @@ module.exports = {
         icon: "src/images/icon.png",
       },
     },
-    "gatsby-plugin-mdx",
     {
       resolve: "gatsby-source-filesystem",
       options: {
