@@ -1,3 +1,5 @@
+import { Link } from "gatsby"
+
 // markup
 const IndexPage = () => {
   return (

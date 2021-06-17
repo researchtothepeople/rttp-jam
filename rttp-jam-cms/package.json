@@ -36,15 +36,17 @@
     "@sanity/default-layout": "^2.10.5",
     "@sanity/default-login": "^2.10.5",
     "@sanity/desk-tool": "^2.10.5",
+    "@sanity/icons": "^1.1.2",
+    "@sanity/ui": "^0.34.4",
     "@sanity/vision": "^2.10.5",
     "prop-types": "^15.6",
     "react": "^17",
     "react-dom": "^17",
     "react-icons": "^4.2.0",
     "sanity-plugin-content-calendar": "^1.1.0",
-    "sanity-plugin-graph-view": "^1.0.4",
     "sanity-plugin-latex-input": "^1.0.1",
-    "sanity-plugin-markdown": "^2.0.2"
+    "sanity-plugin-markdown": "^2.0.2",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",

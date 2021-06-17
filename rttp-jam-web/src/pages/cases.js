@@ -40,6 +40,7 @@ const Cases = ({ data }) => {
                 {studyCase.topic}
               </span>
             </h2>
+            <p>{studyCase.time}</p>
             <Link to={studyCase.slug.current}>Case Detail</Link>
           </div>
         </div>
@@ -50,7 +51,7 @@ const Cases = ({ data }) => {
 
 export const query = graphql`
   {
-    studyCases: allSanityStudyCase {
+    studyCases: allSanityStudyCase(sort: { fields: launchDate, order: DESC }) {
       nodes {
         name
         topic
@@ -58,6 +59,7 @@ export const query = graphql`
           current
         }
         _id
+        time
       }
     }
   }

@@ -1,4 +1,5 @@
 import { RiContactsBook2Fill as icon } from "react-icons/ri"
+import { EqualIcon as MathIcon } from "@sanity/icons"
 
 export default {
   name: "studyCase",
@@ -62,6 +63,18 @@ export default {
       name: "caseDataUrl",
       title: "Case Data URL",
       type: "url",
+    },
+    {
+      name: "bio",
+      title: "Biography",
+      type: "array",
+      of: [
+        {
+          type: "block",
+          of: [{ type: "latex", icon: MathIcon, title: "Inline math" }],
+        },
+        { type: "latex", icon: MathIcon, title: "Math block" },
+      ],
     },
     // {
     //   name: "repositories",

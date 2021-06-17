@@ -1,9 +1,12 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
+import SanityImage from "gatsby-plugin-sanity-image"
+import styled from "@emotion/styled"
+import BlockContent from "@sanity/block-content-to-react"
 
 const Case = ({ data }) => {
   return (
-    <main
+    <div
       css={css`
         max-width: 960px;
         padding: 2rem;
@@ -17,7 +20,7 @@ const Case = ({ data }) => {
         }
       `}
     >
-      <div
+      <nav
         css={css`
           padding: 1rem 0;
           border-top: 1px solid #eee;
@@ -25,57 +28,88 @@ const Case = ({ data }) => {
         `}
       >
         <Link to="/cases">Cases</Link>
-      </div>
-      <div
+      </nav>
+      <header
         css={css`
-          display: grid;
-          grid-template-columns: 2fr 1fr;
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
         `}
       >
-        <h1
+        <div
           css={css`
-            font-size: 1.75rem;
-            line-height: 1.2;
+            margin-right: 2rem;
           `}
         >
-          {data.studyCase.name}: {data.studyCase.topic}
-        </h1>
-      </div>
-      <div>
-        <h3>Results</h3>
-        {data.repositories.nodes
-          .filter(
-            (repository) => repository.studyCase._id === data.studyCase._id
-          )
-          .map((repository) => (
-            <div
-              key={repository._id}
+          <h1>
+            {data.studyCase.name}
+            <br />
+            <span
               css={css`
-                padding: 1rem 0;
+                font-weight: normal;
               `}
             >
-              <Link to={`results/${repository.slug.current}`}>
-                {repository.projectTitle}
-              </Link>
-            </div>
-          ))}
-        <h3>Notes</h3>
-        {data.notes.nodes
-          .filter((note) => note.studyCase._id === data.studyCase._id)
-          .map((note) => (
-            <div
-              key={note._id}
-              css={css`
-                padding: 1rem 0;
-              `}
-            >
-              <Link to={`notes/${note.slug.current}`}>{note.title}</Link>
-            </div>
-          ))}
-      </div>
-    </main>
+              {data.studyCase.topic}
+            </span>
+          </h1>
+          <BlockContent blocks={data.studyCase._rawBio} />
+        </div>
+        <ProfilePicture
+          {...data.studyCase.photo}
+          width={256}
+          alt={`A photo of ${data.studyCase.name}.`}
+        />
+      </header>
+      <main>
+        <Section>
+          <h2>Results</h2>
+          {data.repositories.nodes
+            .filter(
+              (repository) => repository.studyCase._id === data.studyCase._id
+            )
+            .map((repository) => (
+              <div
+                key={repository._id}
+                css={css`
+                  padding: 1rem 0;
+                `}
+              >
+                <Link to={`results/${repository.slug.current}`}>
+                  {repository.projectTitle}
+                </Link>
+              </div>
+            ))}
+        </Section>
+        <Section>
+          <h2>Notes</h2>
+          {data.notes.nodes
+            .filter((note) => note.studyCase._id === data.studyCase._id)
+            .map((note) => (
+              <div
+                key={note._id}
+                css={css`
+                  padding: 1rem 0;
+                `}
+              >
+                <Link to={`notes/${note.slug.current}`}>{note.title}</Link>
+              </div>
+            ))}
+        </Section>
+      </main>
+    </div>
   )
 }
+
+const ProfilePicture = styled(SanityImage)`
+  width: 256px;
+  height: 256px;
+  object-fit: cover;
+  border-radius: 256px;
+`
+const Section = styled.section`
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+`
 
 export const query = graphql`
   query ($studyCaseId: String!) {
@@ -86,6 +120,11 @@ export const query = graphql`
       }
       name
       topic
+      time
+      photo {
+        ...ImageWithPreview
+      }
+      _rawBio
     }
     repositories: allSanityRepository {
       nodes {
