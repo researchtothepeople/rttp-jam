@@ -1,48 +1,17 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# RTTP Results Site
 
-## 🚀 Quick start
+Front-end layout and dashboard UI for the cases and results site using [Gatsby](https://www.gatsbyjs.com/docs/) and [Sanity](https://www.sanity.io/docs).
 
-1.  **Create a Gatsby site.**
+## Setup
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+run `yarn` in both `cms` and `web` folders to install packages.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+run `yarn start` in both `cms` and `web` folders to start the development server. You will need 2 terminal windows.
 
-2.  **Start developing.**
+When installing Sanity plugins, use `sanity install` to automatically register the plugin.
 
-    Navigate into your new site’s directory and start it up.
+## Publishing
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+This repository is configured to build automatically on Gatsby Cloud and hosted Sanity Studio.
 
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.js` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+A Sanity project ID is included in `rttp-jam-cms/sanity.json` and attached to the static site generator via a `.env` file. See `rttp-jam-web/env.example` for reference.

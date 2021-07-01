@@ -81,7 +81,7 @@ const Repository = ({ data: { repository } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <a href={repository.repositoryUrl}>{repository.repositoryUrl}</a>
+        <a href={repository.repositoryUrl}>GitHub Repository</a>
       </div>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}

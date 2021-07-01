@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Sanity CMS UI for the RTTP results page.",
-  "main": "package.json",
   "scripts": {
     "start": "sanity start",
     "test": "sanity check"
-  },
-  "comments": {
-    "yarn.lock": "Apparently, `sanity install` must use yarn. Instead of running `npm install/start`, simply use `sanity install/start` instead."
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +35,7 @@
     "@sanity/icons": "^1.1.2",
     "@sanity/ui": "^0.34.4",
     "@sanity/vision": "^2.10.5",
+    "axios": "^0.21.1",
     "prop-types": "^15.6",
     "react": "^17",
     "react-dom": "^17",

@@ -1,4 +1,5 @@
 import { RiNewspaperFill as icon } from "react-icons/ri"
+import RepoUrl from "../componnets/repoUrl"
 
 export default {
   name: "repository",
@@ -9,10 +10,12 @@ export default {
     {
       name: "repositoryUrl",
       title: "Repository URL",
+      description: "Repo URL on GitHub, must be public.",
       type: "url",
+      inputComponent: RepoUrl,
       validation: (Rule) =>
         Rule.uri({
-          scheme: ["https"],
+          scheme: ["https", "http"],
         }),
     },
     {
