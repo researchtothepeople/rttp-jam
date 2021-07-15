@@ -35,8 +35,8 @@ const Repository = ({ data: { repository }, pageContext }) => {
       >
         <Link to="/cases/">Cases</Link>
         {" / "}
-        <Link to={"/cases/" + repository?.studyCase?.slug?.current}>
-          {repository?.studyCase?.name}: {repository?.studyCase?.topic}
+        <Link to={"/cases/" + repository.studyCase?.slug?.current}>
+          {repository.studyCase?.name}: {repository.studyCase?.topic}
         </Link>
         {" / Results"}
       </div>
@@ -64,9 +64,9 @@ const Repository = ({ data: { repository }, pageContext }) => {
             margin-left: 24px;
           `}
         >
-          {repository?.authors.map((author) => (
+          {repository.authors?.map((author) => (
             <div key={author.name}>
-              {author?.name}
+              {author.name}
               {author.affiliation && (
                 <span
                   css={css`

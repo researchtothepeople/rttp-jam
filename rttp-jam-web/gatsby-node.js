@@ -103,9 +103,7 @@ exports.createPages = async ({
         },
       })
         .then((r) => r.json())
-        .then((r) =>
-          r.data?.resource?.object?.text.replaceAll("/blob/", "/raw/")
-        ))
+        .then((r) => r.data.resource.object.text.replaceAll("/blob/", "/raw/")))
 
     await createPage({
       path: `/results/${repository.slug?.current}`,
