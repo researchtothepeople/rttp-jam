@@ -15,7 +15,7 @@ jobs:
               node-version: 16.x
         - name: Install dependencies
           run: |
-              yarn
+              cd rttp-jam-cms && yarn
         - name: Deploy Sanity
           run: |
               set -e
