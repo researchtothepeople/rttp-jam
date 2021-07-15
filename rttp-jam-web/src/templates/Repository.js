@@ -1,11 +1,11 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
 import ReactMarkdown from "react-markdown"
-import BlockContent from "@sanity/block-content-to-react"
-import { GatsbyImage } from "gatsby-plugin-image"
-import { getGatsbyImageData } from "gatsby-source-sanity"
 import PortableText from "../components/PortableText"
-import imgLinks from "@pondorasti/remark-img-links"
+import imgLinks from "../vendor/remark-img-links"
+import gfm from "remark-gfm"
+import raw from "rehype-raw"
+import sanitize from "rehype-sanitize"
 
 const Repository = ({ data: { repository }, pageContext }) => {
   return (
@@ -97,16 +97,19 @@ const Repository = ({ data: { repository }, pageContext }) => {
       {repository.descriptionSource === "readme" && (
         <ReactMarkdown
           children={pageContext.githubMarkdown}
+          disallowedElements={["h1"]}
           remarkPlugins={[
             [
               imgLinks,
               { absolutePath: repository.repositoryUrl + "/raw/master/" },
             ],
+            gfm,
           ]}
+          rehypePlugins={[raw, sanitize]}
         />
       )}
       {repository.descriptionSource === "manual" && (
-        <PortableText blocks={repository._rawDescription} />
+        <PortableText blocks={repository._rawBody} />
       )}
     </main>
   )
@@ -115,7 +118,6 @@ const Repository = ({ data: { repository }, pageContext }) => {
 export const query = graphql`
   query ($repositoryId: String!) {
     repository: sanityRepository(_id: { eq: $repositoryId }) {
-      name
       projectTitle
       authors {
         name
@@ -131,7 +133,7 @@ export const query = graphql`
         }
       }
       descriptionSource
-      _rawDescription
+      _rawBody
     }
   }
 `

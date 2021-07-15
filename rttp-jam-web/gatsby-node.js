@@ -13,7 +13,7 @@ const fetch = require("isomorphic-fetch")
 
 exports.createPages = async ({
   graphql,
-  actions: { createPage, createNodeField },
+  actions: { createPage, createRedirect },
 }) => {
   const res = await graphql(`
     {
@@ -58,8 +58,8 @@ exports.createPages = async ({
     }
   `)
 
-  res.data.studyCases.nodes.forEach(async (studyCase) => {
-    await createPage({
+  res.data.studyCases.nodes.forEach((studyCase) => {
+    createPage({
       path: `/cases/${studyCase.slug.current}`,
       component: path.resolve(`src/templates/Case.js`),
       context: {
@@ -74,7 +74,7 @@ exports.createPages = async ({
     // }
     let res = undefined
     if (repository.descriptionSource === "readme") {
-      fetch("https://api.github.com/graphql", {
+      await fetch("https://api.github.com/graphql", {
         method: "POST",
         body: JSON.stringify({
           query: `
@@ -127,5 +127,10 @@ exports.createPages = async ({
         noteId: note._id,
       },
     })
+  })
+
+  createRedirect({
+    fromPath: `/edit`,
+    toPath: `https://rttp-jam.sanity.studio/desk`,
   })
 }

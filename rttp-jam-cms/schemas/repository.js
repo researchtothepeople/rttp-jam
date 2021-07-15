@@ -1,6 +1,6 @@
 import { RiNewspaperFill as icon } from "react-icons/ri"
-import RepoUrl from "../componnets/repoUrl"
-import { EqualIcon, ImageIcon } from "@sanity/icons"
+import RepoUrl from "../components/repoUrl"
+import SlugInput from "../components/Slug"
 
 export default {
   name: "repository",
@@ -20,21 +20,16 @@ export default {
         }),
     },
     {
-      name: "name",
-      title: "Team Name",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    },
-    {
       name: "slug",
-      title: "Slug",
-      description:
-        "A unique id that will be used for the URL. Click “Generate” to use the team name.",
+      title: "URL",
+      description: "Click “Generate” to use the repository name.",
       type: "slug",
+      inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        source: "name",
-        maxLength: 140,
+        basePath: "https://cases.researchtothepeople.org/results",
+        source: (doc) => new URL(doc.repositoryUrl).pathname.split("/")[2],
+        slugify: (input) => input.replace(/\s+/g, "-"),
       },
     },
     // {
@@ -84,7 +79,7 @@ export default {
             value: "readme",
             title: "Use GitHub Readme",
           },
-          { value: "manual", title: "Edit manually" },
+          { value: "manual", title: "Edit manually below" },
         ],
         layout: "radio",
       },
@@ -95,14 +90,14 @@ export default {
     //   type: "markdown",
     // },
     {
-      name: "description",
-      title: "Description",
+      name: "body",
+      title: "Body",
       type: "richText",
     },
   ],
   preview: {
     select: {
-      name: "name",
+      slug: "slug.current",
       projectTitle: "projectTitle",
       studyCaseName: "studyCase.name",
       studyCaseTopic: "studyCase.topic",
@@ -111,7 +106,7 @@ export default {
       author2: "authors.2.name",
     },
     prepare: ({
-      name,
+      slug,
       projectTitle,
       studyCaseName,
       studyCaseTopic,
@@ -120,8 +115,8 @@ export default {
       author2,
     }) => {
       return {
-        title: `${name} — ${projectTitle}`,
-        subtitle: `${studyCaseName}, ${studyCaseTopic} — ${author0}, ${author1}, ${author2}, et al.`,
+        title: `${slug} — ${projectTitle}`,
+        subtitle: `${studyCaseName} — ${author0}, ${author1}, ${author2}, et al.`,
       }
     },
   },

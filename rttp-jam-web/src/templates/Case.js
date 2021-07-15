@@ -1,6 +1,5 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
-import SanityImage from "gatsby-plugin-sanity-image"
 import styled from "@emotion/styled"
 import BlockContent from "@sanity/block-content-to-react"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -56,7 +55,10 @@ const Case = ({ data }) => {
           <BlockContent blocks={data.studyCase._rawBio} />
         </div>
         {data.studyCase.photo && (
-          <ProfilePicture image={data.studyCase.photo.asset.gatsbyImageData} />
+          <ProfilePicture
+            image={data.studyCase.photo.asset.gatsbyImageData}
+            alt={`A photo of ${data.studyCase.name}.`}
+          />
         )}
       </header>
       <main>
@@ -133,7 +135,6 @@ export const query = graphql`
     repositories: allSanityRepository {
       nodes {
         _id
-        name
         projectTitle
         slug {
           current

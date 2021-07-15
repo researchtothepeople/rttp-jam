@@ -1,5 +1,6 @@
 import { RiStickyNoteFill as icon } from "react-icons/ri"
 import { EqualIcon as MathIcon } from "@sanity/icons"
+import SlugInput from "../components/Slug"
 
 export default {
   name: "note",
@@ -15,14 +16,13 @@ export default {
     },
     {
       name: "slug",
-      title: "Slug",
-      description:
-        "A unique id for the URL. Click “Generate” to use the title.",
+      title: "URL",
       type: "slug",
+      inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
+        basePath: "https://cases.researchtothepeople.org/notes",
         source: "title",
-        maxLength: 140,
       },
     },
     {

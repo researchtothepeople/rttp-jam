@@ -18,13 +18,6 @@ module.exports = {
       },
     },
     { resolve: "gatsby-plugin-image" },
-    {
-      resolve: "gatsby-plugin-sanity-image",
-      options: {
-        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
-        dataset: process.env.GATSBY_SANITY_DATASET,
-      },
-    },
     "gatsby-plugin-emotion",
     // {
     //   resolve: "gatsby-plugin-google-analytics",

@@ -1,5 +1,6 @@
 import { RiContactsBook2Fill as icon } from "react-icons/ri"
 import { EqualIcon as MathIcon } from "@sanity/icons"
+import SlugInput from "../components/Slug"
 
 export default {
   name: "studyCase",
@@ -20,13 +21,13 @@ export default {
     },
     {
       name: "slug",
-      title: "Slug",
-      description:
-        "A unique id that will be used for the URL. You might want to abbreviate some words to keep it short, like “Neurofibromatosis Type 2” to “nf2”.",
+      title: "URL",
       type: "slug",
+      inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        source: (doc) => `${doc.name}-${doc.topic}`,
+        basePath: "https://cases.researchtothepeople.org/cases",
+        source: "name",
       },
     },
     {

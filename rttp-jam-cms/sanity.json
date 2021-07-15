@@ -19,7 +19,8 @@
     "@sanity/code-input",
     "markdown",
     "latex-input",
-    "dashboard-widget-gatsby"
+    "dashboard-widget-gatsby",
+    "better-slug"
   ],
   "env": {
     "development": {
