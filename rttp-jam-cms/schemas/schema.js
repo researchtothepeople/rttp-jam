@@ -6,6 +6,8 @@ import repository from "./repository"
 import note from "./note"
 import author from "./author"
 import siteSettings from "./siteSettings"
+import richText from "./richText"
+import figure from "./figure"
 
 export default createSchema({
   // We name our schema
@@ -18,5 +20,7 @@ export default createSchema({
     note,
     author,
     siteSettings,
+    richText,
+    figure,
   ]),
 })

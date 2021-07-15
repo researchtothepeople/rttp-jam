@@ -1,5 +1,6 @@
 import { RiNewspaperFill as icon } from "react-icons/ri"
 import RepoUrl from "../componnets/repoUrl"
+import { EqualIcon, ImageIcon } from "@sanity/icons"
 
 export default {
   name: "repository",
@@ -81,17 +82,22 @@ export default {
         list: [
           {
             value: "readme",
-            title: "Import from GitHub Readme and put it below",
+            title: "Use GitHub Readme",
           },
           { value: "manual", title: "Edit manually" },
         ],
         layout: "radio",
       },
     },
+    // {
+    //   name: "description",
+    //   title: "Description",
+    //   type: "markdown",
+    // },
     {
       name: "description",
       title: "Description",
-      type: "markdown",
+      type: "richText",
     },
   ],
   preview: {

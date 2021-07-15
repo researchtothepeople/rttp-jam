@@ -1,9 +1,14 @@
 import { graphql, Link } from "gatsby"
 import { css } from "@emotion/react"
 import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
+import BlockContent from "@sanity/block-content-to-react"
+import { GatsbyImage } from "gatsby-plugin-image"
+import { getGatsbyImageData } from "gatsby-source-sanity"
+import PortableText from "../components/PortableText"
+import imgLinks from "@pondorasti/remark-img-links"
 
-const Repository = ({ data: { repository } }) => {
+const Repository = ({ data: { repository }, pageContext }) => {
+  console.log(pageContext)
   return (
     <main
       css={css`
@@ -25,14 +30,13 @@ const Repository = ({ data: { repository } }) => {
       <div
         css={css`
           padding: 1rem 0;
-          border-top: 1px solid #eee;
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/cases">Cases</Link>
+        <Link to="/cases/">Cases</Link>
         {" / "}
-        <Link to={"/cases/" + repository.studyCase.slug.current}>
-          {repository.studyCase.name}: {repository.studyCase.topic}
+        <Link to={"/cases/" + repository?.studyCase?.slug?.current}>
+          {repository?.studyCase?.name}: {repository?.studyCase?.topic}
         </Link>
         {" / Results"}
       </div>
@@ -40,6 +44,7 @@ const Repository = ({ data: { repository } }) => {
         css={css`
           display: grid;
           grid-template-columns: 2fr 1fr;
+          border-bottom: 1px solid #eee;
         `}
       >
         <h1
@@ -59,34 +64,51 @@ const Repository = ({ data: { repository } }) => {
             margin-left: 24px;
           `}
         >
-          {repository.authors.map((author) => (
+          {repository?.authors.map((author) => (
             <div key={author.name}>
-              {author.name}
-              <span
-                css={css`
-                  font-size: 0.5em;
-                  margin-left: 1em;
-                `}
-              >
-                {author.affiliation}
-              </span>
+              {author?.name}
+              {author.affiliation && (
+                <span
+                  css={css`
+                    font-size: 0.5em;
+                    margin-left: 1em;
+                  `}
+                >
+                  {author.affiliation}
+                </span>
+              )}
             </div>
           ))}
         </div>
       </div>
-      <div
-        css={css`
-          padding: 1rem 0;
-          border-top: 1px solid #eee;
-          border-bottom: 1px solid #eee;
-        `}
-      >
-        <a href={repository.repositoryUrl}>GitHub Repository</a>
-      </div>
-      <ReactMarkdown
+      {repository.repositoryUrl && (
+        <div
+          css={css`
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+          `}
+        >
+          <a href={repository.repositoryUrl}>GitHub Repository</a>
+        </div>
+      )}
+      {/* <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         children={repository.description}
-      />
+      /> */}
+      {repository.descriptionSource === "readme" && (
+        <ReactMarkdown
+          children={pageContext.githubMarkdown}
+          remarkPlugins={[
+            [
+              imgLinks,
+              { absolutePath: repository.repositoryUrl + "/raw/master/" },
+            ],
+          ]}
+        />
+      )}
+      {repository.descriptionSource === "manual" && (
+        <PortableText blocks={repository._rawDescription} />
+      )}
     </main>
   )
 }
@@ -109,7 +131,8 @@ export const query = graphql`
           current
         }
       }
-      description
+      descriptionSource
+      _rawDescription
     }
   }
 `

@@ -1,4 +1,5 @@
 import { RiStickyNoteFill as icon } from "react-icons/ri"
+import { EqualIcon as MathIcon } from "@sanity/icons"
 
 export default {
   name: "note",
@@ -47,7 +48,13 @@ export default {
       name: "body",
       title: "Body",
       type: "array",
-      of: [{ type: "block" }],
+      of: [
+        {
+          type: "block",
+          of: [{ type: "latex", icon: MathIcon, title: "Inline math" }],
+        },
+        { type: "latex", icon: MathIcon, title: "Math block" },
+      ],
     },
   ],
   preview: {

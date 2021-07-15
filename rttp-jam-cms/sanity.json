@@ -18,11 +18,14 @@
     "@sanity/color-input",
     "@sanity/code-input",
     "markdown",
-    "latex-input"
+    "latex-input",
+    "dashboard-widget-gatsby"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [

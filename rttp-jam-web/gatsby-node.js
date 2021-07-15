@@ -1,6 +1,20 @@
 const path = require(`path`)
+const fetch = require("isomorphic-fetch")
 
-exports.createPages = async ({ graphql, actions: { createPage } }) => {
+// exports.onCreateNode = async ({
+//   node,
+//   getNode,
+//   actions: { createNodeField },
+// }) => {
+//   if (node._type === "repository" && node.descriptionSource === "readme") {
+
+//   }
+// }
+
+exports.createPages = async ({
+  graphql,
+  actions: { createPage, createNodeField },
+}) => {
   const res = await graphql(`
     {
       studyCases: allSanityStudyCase {
@@ -23,6 +37,8 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
               current
             }
           }
+          repositoryUrl
+          descriptionSource
         }
       }
       notes: allSanityNote {
@@ -42,7 +58,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     }
   `)
 
-  res.data.studyCases.nodes.forEach((studyCase) => {
+  res.data.studyCases.nodes.forEach(async (studyCase) => {
     createPage({
       path: `/cases/${studyCase.slug.current}`,
       component: path.resolve(`src/templates/Case.js`),
@@ -52,19 +68,59 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     })
   })
 
-  res.data.repositories.nodes.forEach((repository) => {
-    createPage({
-      path: `/cases/${repository.studyCase.slug.current}/results/${repository.slug.current}`,
+  res.data.repositories.nodes.forEach(async (repository) => {
+    // /cases/${
+    //   repository?.studyCase?.slug.current || "general"
+    // }
+    const res =
+      repository.descriptionSource === "readme" &&
+      (await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        body: JSON.stringify({
+          query: `
+          query GET_REPO_README_FROM_URL ($url: URI!) {
+            resource(url: $url) {
+              ... on Repository {
+                nameWithOwner
+                url
+                updatedAt
+                object(expression: "master:README.md") {
+                  ... on Blob {
+                    text
+                  }
+                }
+              }
+            }
+          }
+          `,
+          variables: {
+            url: repository.repositoryUrl,
+          },
+        }),
+        headers: {
+          "content-type": "application/json",
+          authorization: "bearer " + process.env.GITHUB_API_TOKEN,
+        },
+      })
+        .then((r) => r.json())
+        .then((r) =>
+          r?.data?.resource?.object?.text.replaceAll("/blob/", "/raw/")
+        ))
+
+    await createPage({
+      path: `/results/${repository?.slug.current}`,
       component: path.resolve(`src/templates/Repository.js`),
       context: {
         repositoryId: repository._id,
+        githubMarkdown: res || "",
       },
     })
   })
 
   res.data.notes.nodes.forEach((note) => {
+    // /cases/${note?.studyCase?.slug.current || "general"}
     createPage({
-      path: `/cases/${note.studyCase.slug.current}/notes/${note.slug.current}`,
+      path: `/notes/${note?.slug.current}`,
       component: path.resolve(`src/templates/Note.js`),
       context: {
         noteId: note._id,

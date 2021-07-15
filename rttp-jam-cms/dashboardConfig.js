@@ -1,10 +1,11 @@
 export default {
   widgets: [
     {
-      name: "project-info",
+      name: "gatsby",
+      options: { sites: [{ siteUrl: "https://preview-rttpjam61104.gtsb.io" }] },
     },
     {
-      name: "project-users",
+      name: "project-info",
     },
     {
       name: "sanity-tutorials",

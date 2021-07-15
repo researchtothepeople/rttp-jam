@@ -1,6 +1,4 @@
-require("dotenv").config({
-  path: `.env`,
-})
+require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
@@ -11,19 +9,20 @@ module.exports = {
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET,
+        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
+        dataset: process.env.GATSBY_SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
         watchMode: process.env.NODE_ENV === "development",
         overlayDrafts: process.env.NODE_ENV === "development",
         useCdn: !process.env.NODE_ENV === "development",
       },
     },
+    { resolve: "gatsby-plugin-image" },
     {
       resolve: "gatsby-plugin-sanity-image",
       options: {
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET,
+        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
+        dataset: process.env.GATSBY_SANITY_DATASET,
       },
     },
     "gatsby-plugin-emotion",

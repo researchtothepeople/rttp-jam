@@ -17,7 +17,7 @@ const Cases = ({ data }) => {
         }
       `}
     >
-      <h1>Cases & Results</h1>
+      <h1>Cases</h1>
       {data.studyCases.nodes.map((studyCase) => (
         <div
           key={studyCase._id}

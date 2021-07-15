@@ -21,7 +21,6 @@ const Note = ({ data: { note } }) => {
       <div
         css={css`
           padding: 1rem 0;
-          border-top: 1px solid #eee;
           border-bottom: 1px solid #eee;
         `}
       >
@@ -36,6 +35,7 @@ const Note = ({ data: { note } }) => {
         css={css`
           display: grid;
           grid-template-columns: 2fr 1fr;
+          border-bottom: 1px solid #eee;
         `}
       >
         <h1

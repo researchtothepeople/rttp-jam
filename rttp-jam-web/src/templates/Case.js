@@ -3,6 +3,7 @@ import { css } from "@emotion/react"
 import SanityImage from "gatsby-plugin-sanity-image"
 import styled from "@emotion/styled"
 import BlockContent from "@sanity/block-content-to-react"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 const Case = ({ data }) => {
   return (
@@ -23,7 +24,7 @@ const Case = ({ data }) => {
       <nav
         css={css`
           padding: 1rem 0;
-          border-top: 1px solid #eee;
+          /* border-top: 1px solid #eee; */
           border-bottom: 1px solid #eee;
         `}
       >
@@ -54,11 +55,7 @@ const Case = ({ data }) => {
           </h1>
           <BlockContent blocks={data.studyCase._rawBio} />
         </div>
-        <ProfilePicture
-          {...data.studyCase.photo}
-          width={256}
-          alt={`A photo of ${data.studyCase.name}.`}
-        />
+        <ProfilePicture image={data.studyCase.photo.asset.gatsbyImageData} />
       </header>
       <main>
         <Section>
@@ -74,7 +71,7 @@ const Case = ({ data }) => {
                   padding: 1rem 0;
                 `}
               >
-                <Link to={`results/${repository.slug.current}`}>
+                <Link to={`/results/${repository.slug.current}`}>
                   {repository.projectTitle}
                 </Link>
               </div>
@@ -91,7 +88,7 @@ const Case = ({ data }) => {
                   padding: 1rem 0;
                 `}
               >
-                <Link to={`notes/${note.slug.current}`}>{note.title}</Link>
+                <Link to={`/notes/${note.slug.current}`}>{note.title}</Link>
               </div>
             ))}
         </Section>
@@ -100,11 +97,14 @@ const Case = ({ data }) => {
   )
 }
 
-const ProfilePicture = styled(SanityImage)`
+const ProfilePicture = styled(GatsbyImage)`
   width: 256px;
   height: 256px;
   object-fit: cover;
   border-radius: 256px;
+  overflow: hidden;
+  display: block;
+  flex: 0 0 256px;
 `
 const Section = styled.section`
   border-top: 1px solid #eee;
@@ -122,7 +122,9 @@ export const query = graphql`
       topic
       time
       photo {
-        ...ImageWithPreview
+        asset {
+          gatsbyImageData
+        }
       }
       _rawBio
     }
