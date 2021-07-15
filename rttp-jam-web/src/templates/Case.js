@@ -55,7 +55,9 @@ const Case = ({ data }) => {
           </h1>
           <BlockContent blocks={data.studyCase._rawBio} />
         </div>
-        <ProfilePicture image={data.studyCase.photo.asset.gatsbyImageData} />
+        {data.studyCase.photo && (
+          <ProfilePicture image={data.studyCase.photo.asset.gatsbyImageData} />
+        )}
       </header>
       <main>
         <Section>

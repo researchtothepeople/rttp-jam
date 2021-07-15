@@ -59,7 +59,7 @@ exports.createPages = async ({
   `)
 
   res.data.studyCases.nodes.forEach(async (studyCase) => {
-    createPage({
+    await createPage({
       path: `/cases/${studyCase.slug.current}`,
       component: path.resolve(`src/templates/Case.js`),
       context: {
@@ -72,9 +72,9 @@ exports.createPages = async ({
     // /cases/${
     //   repository?.studyCase?.slug.current || "general"
     // }
-    const res =
-      repository.descriptionSource === "readme" &&
-      (await fetch("https://api.github.com/graphql", {
+    let res = undefined
+    if (repository.descriptionSource === "readme") {
+      fetch("https://api.github.com/graphql", {
         method: "POST",
         body: JSON.stringify({
           query: `
@@ -103,7 +103,11 @@ exports.createPages = async ({
         },
       })
         .then((r) => r.json())
-        .then((r) => r.data.resource.object.text.replaceAll("/blob/", "/raw/")))
+        .then(
+          (r) =>
+            (res = r.data.resource.object.text.replaceAll("/blob/", "/raw/"))
+        )
+    }
 
     await createPage({
       path: `/results/${repository.slug?.current}`,
@@ -115,8 +119,8 @@ exports.createPages = async ({
     })
   })
 
-  res.data.notes.nodes.forEach((note) => {
-    createPage({
+  res.data.notes.nodes.forEach(async (note) => {
+    await createPage({
       path: `/notes/${note.slug?.current}`,
       component: path.resolve(`src/templates/Note.js`),
       context: {

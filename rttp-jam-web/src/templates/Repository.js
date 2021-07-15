@@ -8,7 +8,6 @@ import PortableText from "../components/PortableText"
 import imgLinks from "@pondorasti/remark-img-links"
 
 const Repository = ({ data: { repository }, pageContext }) => {
-  console.log(pageContext)
   return (
     <main
       css={css`
