@@ -104,11 +104,11 @@ exports.createPages = async ({
       })
         .then((r) => r.json())
         .then((r) =>
-          r?.data?.resource?.object?.text.replaceAll("/blob/", "/raw/")
+          r.data?.resource?.object?.text.replaceAll("/blob/", "/raw/")
         ))
 
     await createPage({
-      path: `/results/${repository?.slug.current}`,
+      path: `/results/${repository.slug?.current}`,
       component: path.resolve(`src/templates/Repository.js`),
       context: {
         repositoryId: repository._id,
@@ -118,9 +118,8 @@ exports.createPages = async ({
   })
 
   res.data.notes.nodes.forEach((note) => {
-    // /cases/${note?.studyCase?.slug.current || "general"}
     createPage({
-      path: `/notes/${note?.slug.current}`,
+      path: `/notes/${note.slug?.current}`,
       component: path.resolve(`src/templates/Note.js`),
       context: {
         noteId: note._id,
