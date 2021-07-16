@@ -1,9 +1,5 @@
 name: Deploy Sanity Studio
 
-defaults:
-  run:
-    working-directory: rttp-jam-cms
-
 on:
   push:
     branches: [master]
@@ -13,6 +9,9 @@ on:
 
 jobs:
   deploy:
+    defaults:
+      run:
+        working-directory: rttp-jam-cms
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +19,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: yarn
 
       - name: Install dependencies
         run: yarn
