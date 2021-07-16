@@ -1,6 +1,6 @@
 import React from "react"
 import { FormField } from "@sanity/base/components"
-import { Box, Card, Flex, Stack, Text, TextInput } from "@sanity/ui"
+import { Box, Stack, Spinner, Text, TextInput } from "@sanity/ui"
 import PatchEvent, { set, unset } from "@sanity/form-builder/PatchEvent"
 import { useId } from "@reach/auto-id"
 
@@ -99,18 +99,18 @@ const RepoUrl = React.forwardRef(
             ref={ref}
           />
           <Box marginTop={3}>
-            {loading && (
+            {loading ? (
+              <Spinner size={1} muted />
+            ) : queryRes ? (
               <Text size={1} muted>
-                …
-              </Text>
-            )}
-            {!loading && queryRes ? (
-              <Text size={1} muted>
-                {!loading &&
-                  queryRes &&
-                  `${queryRes.nameWithOwner || ""} — Refreshed at ${new Date(
-                    queryRes.updatedAt
-                  ).toLocaleString()}`}
+                {!loading && queryRes && (
+                  <span>
+                    <a href={queryRes.url}>{queryRes.nameWithOwner || null}</a>
+                    {`— Refreshed at ${new Date(
+                      queryRes.updatedAt
+                    ).toLocaleString()}`}
+                  </span>
+                )}
               </Text>
             ) : (
               <Text size={1} muted>

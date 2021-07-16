@@ -16,7 +16,7 @@ export default {
     },
     {
       name: "affiliation",
-      title: "Affiliation/Organization",
+      title: "Affiliation / Organization",
       type: "string",
     },
     {
@@ -24,11 +24,11 @@ export default {
       title: "Email",
       type: "string",
     },
-    // {
-    //   name: "photo",
-    //   title: "Photo",
-    //   type: "image",
-    // },
+    {
+      name: "orcid",
+      title: "ORCID Link",
+      type: "url",
+    },
   ],
   preview: {
     select: {

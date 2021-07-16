@@ -58,26 +58,27 @@ exports.createPages = async ({
     }
   `)
 
-  res.data.studyCases.nodes.forEach((studyCase) => {
-    createPage({
-      path: `/cases/${studyCase.slug.current}`,
-      component: path.resolve(`src/templates/Case.js`),
-      context: {
-        studyCaseId: studyCase._id,
-      },
-    })
-  })
+  return Promise.all([
+    res.data.studyCases.nodes.map((studyCase) =>
+      createPage({
+        path: `/cases/${studyCase.slug.current}`,
+        component: path.resolve(`src/templates/Case.js`),
+        context: {
+          studyCaseId: studyCase._id,
+        },
+      })
+    ),
 
-  res.data.repositories.nodes.forEach(async (repository) => {
-    // /cases/${
-    //   repository?.studyCase?.slug.current || "general"
-    // }
-    let res = undefined
-    if (repository.descriptionSource === "readme") {
-      await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        body: JSON.stringify({
-          query: `
+    res.data.repositories.nodes.map(async (repository) => {
+      // /cases/${
+      //   repository?.studyCase?.slug.current || "general"
+      // }
+      let readme =
+        (await repository.descriptionSource) === "readme" &&
+        fetch("https://api.github.com/graphql", {
+          method: "POST",
+          body: JSON.stringify({
+            query: `
           query GET_REPO_README_FROM_URL ($url: URI!) {
             resource(url: $url) {
               ... on Repository {
@@ -93,44 +94,43 @@ exports.createPages = async ({
             }
           }
           `,
-          variables: {
-            url: repository.repositoryUrl,
+            variables: {
+              url: repository.repositoryUrl,
+            },
+          }),
+          headers: {
+            "content-type": "application/json",
+            authorization: "bearer " + process.env.GITHUB_API_TOKEN,
           },
-        }),
-        headers: {
-          "content-type": "application/json",
-          authorization: "bearer " + process.env.GITHUB_API_TOKEN,
+        })
+          .then((r) => r.json())
+          .then((r) =>
+            r.data.resource.object.text.replaceAll("/blob/", "/raw/")
+          )
+
+      createPage({
+        path: `/results/${repository.slug?.current}`,
+        component: path.resolve(`src/templates/Repository.js`),
+        context: {
+          repositoryId: repository._id,
+          githubMarkdown: readme || "",
         },
       })
-        .then((r) => r.json())
-        .then(
-          (r) =>
-            (res = r.data.resource.object.text.replaceAll("/blob/", "/raw/"))
-        )
-    }
+    }),
 
-    await createPage({
-      path: `/results/${repository.slug?.current}`,
-      component: path.resolve(`src/templates/Repository.js`),
-      context: {
-        repositoryId: repository._id,
-        githubMarkdown: res || "",
-      },
-    })
-  })
+    res.data.notes.nodes.map((note) => {
+      createPage({
+        path: `/notes/${note.slug?.current}`,
+        component: path.resolve(`src/templates/Note.js`),
+        context: {
+          noteId: note._id,
+        },
+      })
+    }),
 
-  res.data.notes.nodes.forEach(async (note) => {
-    await createPage({
-      path: `/notes/${note.slug?.current}`,
-      component: path.resolve(`src/templates/Note.js`),
-      context: {
-        noteId: note._id,
-      },
-    })
-  })
-
-  createRedirect({
-    fromPath: `/edit`,
-    toPath: `https://rttp-jam.sanity.studio/desk`,
-  })
+    createRedirect({
+      fromPath: `/edit`,
+      toPath: `https://rttp-jam.sanity.studio/desk`,
+    }),
+  ])
 }

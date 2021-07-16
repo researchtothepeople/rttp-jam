@@ -32,12 +32,13 @@ const Repository = ({ data: { repository }, pageContext }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/cases/">Cases</Link>
-        {" / "}
-        <Link to={"/cases/" + repository.studyCase?.slug?.current}>
-          {repository.studyCase?.name}: {repository.studyCase?.topic}
-        </Link>
-        {" / Results"}
+        <Link to="/">Cases</Link>
+        {repository?.studyCase && " / "}
+        {repository?.studyCase && (
+          <Link to={"/cases/" + repository?.studyCase?.slug?.current}>
+            {repository?.studyCase?.name}: {repository?.studyCase?.topic}
+          </Link>
+        )}
       </div>
       <div
         css={css`

@@ -10,19 +10,23 @@ const sanityConfig = {
 
 const serializers = {
   types: {
-    figure: (props) => {
+    figure: ({ node }) => {
       const gatsbyImageData = getGatsbyImageData(
-        props.node.image.asset._ref,
+        node.image.asset._ref,
         { placeholder: "dominantColor" },
         sanityConfig
       )
+      console.log(gatsbyImageData)
       return (
         <figure>
           {/* <pre>{JSON.stringify(props, null, " ")}</pre> */}
           <GatsbyImage image={gatsbyImageData} alt="" />
-          <figcaption>{props.node.caption}</figcaption>
+          <figcaption>{node.caption}</figcaption>
         </figure>
       )
+    },
+    file: ({ node }) => {
+      return <pre>{JSON.stringify(node, null, " ")}</pre>
     },
   },
 }

@@ -15,11 +15,6 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: "topic",
-      title: "Topic / Diagnosis",
-      type: "string",
-    },
-    {
       name: "slug",
       title: "URL",
       type: "slug",
@@ -31,16 +26,21 @@ export default {
       },
     },
     {
+      name: "topic",
+      title: "Topic / Diagnosis",
+      type: "string",
+    },
+    {
       name: "photo",
       title: "Photo",
-      description: "Profile photo of the person, if available.",
+      description: "Profile photo or organization logo.",
       type: "image",
     },
     {
       name: "time",
       title: "Time Span",
       type: "string",
-      description: "Visible to users. E.g., Fall 2020",
+      description: "Visible to visitors. E.g., Fall 2020",
     },
     {
       name: "launchDate",
@@ -56,26 +56,19 @@ export default {
       type: "url",
     },
     {
-      name: "caseData",
-      title: "Case Data Description",
-      type: "string",
-    },
-    {
       name: "caseDataUrl",
       title: "Case Data URL",
       type: "url",
     },
     {
+      name: "caseData",
+      title: "Case Data Description",
+      type: "string",
+    },
+    {
       name: "bio",
       title: "Biography",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          of: [{ type: "latex", icon: MathIcon, title: "Inline math" }],
-        },
-        { type: "latex", icon: MathIcon, title: "Math block" },
-      ],
+      type: "richText",
     },
     // {
     //   name: "repositories",

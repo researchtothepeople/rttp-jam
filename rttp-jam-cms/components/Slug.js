@@ -142,7 +142,7 @@ class SlugInput extends React.Component {
           compareValue={compareValue?.current}
         >
           <FormField
-            label={type.title || type.name}
+            title={type.title || type.name}
             description={type.description}
             level={this.props.level}
             // Necessary for validation warnings to show up contextually

@@ -5,7 +5,9 @@
   "description": "Sanity CMS UI for the RTTP results page.",
   "scripts": {
     "start": "sanity start",
-    "test": "sanity check"
+    "test": "sanity check",
+    "gql": "sanity graphql deploy --no-playground",
+    "deploy": "sanity deploy"
   },
   "eslintConfig": {
     "extends": [

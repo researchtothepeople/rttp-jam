@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 import BlockContent from "@sanity/block-content-to-react"
 import { GatsbyImage } from "gatsby-plugin-image"
 
-const Case = ({ data }) => {
+const Case = ({ data: { studyCase, repositories, notes } }) => {
   return (
     <div
       css={css`
@@ -33,42 +33,42 @@ const Case = ({ data }) => {
         css={css`
           display: flex;
           justify-content: space-between;
+          align-items: flex-start;
           margin-top: 1rem;
         `}
       >
         <div
           css={css`
-            margin-right: 2rem;
+            margin-right: 4rem;
           `}
         >
           <h1>
-            {data.studyCase.name}
+            {studyCase.name}
             <br />
             <span
               css={css`
                 font-weight: normal;
               `}
             >
-              {data.studyCase.topic}
+              {studyCase.topic}
             </span>
           </h1>
-          <BlockContent blocks={data.studyCase._rawBio} />
+          <BlockContent blocks={studyCase._rawBio} />
         </div>
-        {data.studyCase.photo && (
-          <ProfilePicture
-            image={data.studyCase.photo.asset.gatsbyImageData}
-            alt={`A photo of ${data.studyCase.name}.`}
-          />
-        )}
+        <div>
+          {studyCase.photo && (
+            <ProfilePicture
+              image={studyCase.photo.asset.gatsbyImageData}
+              alt={`A photo of ${studyCase.name}.`}
+            />
+          )}
+        </div>
       </header>
       <main>
-        <Section>
-          <h2>Results</h2>
-          {data.repositories.nodes
-            .filter(
-              (repository) => repository.studyCase._id === data.studyCase._id
-            )
-            .map((repository) => (
+        {repositories.nodes.length > 0 && (
+          <Section>
+            <h2>Results</h2>
+            {repositories.nodes.map((repository) => (
               <div
                 key={repository._id}
                 css={css`
@@ -80,12 +80,12 @@ const Case = ({ data }) => {
                 </Link>
               </div>
             ))}
-        </Section>
-        <Section>
-          <h2>Notes</h2>
-          {data.notes.nodes
-            .filter((note) => note.studyCase._id === data.studyCase._id)
-            .map((note) => (
+          </Section>
+        )}
+        {notes.nodes.length > 0 && (
+          <Section>
+            <h2>Notes</h2>
+            {notes.nodes.map((note) => (
               <div
                 key={note._id}
                 css={css`
@@ -95,7 +95,8 @@ const Case = ({ data }) => {
                 <Link to={`/notes/${note.slug.current}`}>{note.title}</Link>
               </div>
             ))}
-        </Section>
+          </Section>
+        )}
       </main>
     </div>
   )
@@ -103,12 +104,17 @@ const Case = ({ data }) => {
 
 const ProfilePicture = styled(GatsbyImage)`
   width: 256px;
-  height: 256px;
+  /* height: 256px; */
   object-fit: cover;
   border-radius: 256px;
-  overflow: hidden;
-  display: block;
+  z-index: 1;
+  /* display: block; */
   flex: 0 0 256px;
+  ${({ $shouldCrop = false }) =>
+    $shouldCrop &&
+    css`
+      border-radius: 256px;
+    `}
 `
 const Section = styled.section`
   border-top: 1px solid #eee;
@@ -127,12 +133,14 @@ export const query = graphql`
       time
       photo {
         asset {
-          gatsbyImageData
+          gatsbyImageData(placeholder: NONE)
         }
       }
       _rawBio
     }
-    repositories: allSanityRepository {
+    repositories: allSanityRepository(
+      filter: { studyCase: { _id: { eq: $studyCaseId } } }
+    ) {
       nodes {
         _id
         projectTitle
@@ -144,7 +152,10 @@ export const query = graphql`
         }
       }
     }
-    notes: allSanityNote(sort: { fields: date, order: DESC }) {
+    notes: allSanityNote(
+      filter: { studyCase: { _id: { eq: $studyCaseId } } }
+      sort: { fields: date, order: DESC }
+    ) {
       nodes {
         _id
         title

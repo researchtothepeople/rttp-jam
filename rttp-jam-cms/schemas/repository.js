@@ -10,8 +10,7 @@ export default {
   fields: [
     {
       name: "repositoryUrl",
-      title: "Repository URL",
-      description: "Repo URL on GitHub, must be public.",
+      title: "GitHub Repository URL",
       type: "url",
       inputComponent: RepoUrl,
       validation: (Rule) =>
@@ -55,7 +54,6 @@ export default {
       name: "projectTitle",
       title: "Project Title",
       type: "text",
-      validation: (Rule) => Rule.required(),
       rows: 3,
     },
     {
@@ -66,12 +64,12 @@ export default {
     },
     {
       name: "teamAffiliation",
-      title: "Team Affiliation/Organization",
+      title: "Team Affiliation / Organization",
       type: "string",
     },
     {
       name: "descriptionSource",
-      title: "Description Source",
+      title: "Content Source",
       type: "string",
       options: {
         list: [
@@ -116,7 +114,9 @@ export default {
     }) => {
       return {
         title: `${slug} — ${projectTitle}`,
-        subtitle: `${studyCaseName} — ${author0}, ${author1}, ${author2}, et al.`,
+        subtitle: `${
+          studyCaseName ? studyCaseName + " — " : ""
+        }${author0}, ${author1}, ${author2}, et al.`,
       }
     },
   },

@@ -47,14 +47,7 @@ export default {
     {
       name: "body",
       title: "Body",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          of: [{ type: "latex", icon: MathIcon, title: "Inline math" }],
-        },
-        { type: "latex", icon: MathIcon, title: "Math block" },
-      ],
+      type: "richText",
     },
   ],
   preview: {
