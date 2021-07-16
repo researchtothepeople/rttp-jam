@@ -1,5 +1,5 @@
 import { RiNewspaperFill as icon } from "react-icons/ri"
-import RepoUrl from "../components/repoUrl"
+import RepoUrl from "../components/RepoUrl"
 import SlugInput from "../components/Slug"
 
 export default {
