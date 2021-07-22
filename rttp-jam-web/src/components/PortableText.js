@@ -16,7 +16,6 @@ const serializers = {
         { placeholder: "dominantColor" },
         sanityConfig
       )
-      console.log(gatsbyImageData)
       return (
         <figure>
           {/* <pre>{JSON.stringify(props, null, " ")}</pre> */}

@@ -28,7 +28,7 @@
   "dependencies": {
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
-    "@pondorasti/remark-img-links": "^1.0.5",
+    "@pondorasti/remark-img-links": "^1.0.8",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.1.4",
     "gatsby": "^3.5.1",

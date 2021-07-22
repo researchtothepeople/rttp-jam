@@ -1774,7 +1774,7 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@pondorasti/remark-img-links@^1.0.5":
+"@pondorasti/remark-img-links@^1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@pondorasti/remark-img-links/-/remark-img-links-1.0.8.tgz#1ba8246834c0a5b6b13a9b25a77827d49f6bea25"
   integrity sha512-UpW5AfimYi7EdkL9qvQ4trzIzgi5KERdd4KHN8fkVWrh2BqCzKuheJbAzSgIxJr0opQ7NvaIwf+JRjV/fBRdrA==
