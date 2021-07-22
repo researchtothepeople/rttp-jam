@@ -7,35 +7,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-gatsby-cloud`,
     {
-      resolve: "gatsby-source-sanity",
-      options: {
-        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
-        dataset: process.env.GATSBY_SANITY_DATASET,
-        token: process.env.SANITY_TOKEN,
-        watchMode: process.env.NODE_ENV === "development",
-        overlayDrafts: process.env.NODE_ENV === "development",
-        useCdn: !process.env.NODE_ENV === "development",
-      },
-    },
-    { resolve: "gatsby-plugin-image" },
-    "gatsby-plugin-emotion",
-    // {
-    //   resolve: "gatsby-plugin-google-analytics",
-    //   options: {
-    //     trackingId: "",
-    //   },
-    // },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-react-helmet",
-    // "gatsby-plugin-sitemap",
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        icon: "src/images/icon.png",
-      },
-    },
-    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
@@ -51,5 +22,46 @@ module.exports = {
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-source-sanity",
+      options: {
+        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
+        dataset: process.env.GATSBY_SANITY_DATASET,
+        token: process.env.SANITY_TOKEN,
+        watchMode: process.env.NODE_ENV === "development",
+        overlayDrafts: process.env.NODE_ENV === "development",
+        useCdn: !process.env.NODE_ENV === "development",
+      },
+    },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "GitHub",
+        fieldName: "github",
+        url: "https://api.github.com/graphql",
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`,
+        },
+        batch: true,
+      },
+    },
+    "gatsby-plugin-image",
+    "gatsby-plugin-emotion",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-react-helmet",
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        icon: "src/images/icon.png",
+      },
+    },
+    // "gatsby-plugin-sitemap",
+    // {
+    //   resolve: "gatsby-plugin-google-analytics",
+    //   options: {
+    //     trackingId: "",
+    //   },
+    // },
   ],
 }

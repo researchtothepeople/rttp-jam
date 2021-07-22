@@ -7,7 +7,7 @@ import gfm from "remark-gfm"
 import raw from "rehype-raw"
 import sanitize from "rehype-sanitize"
 
-const Repository = ({ data: { repository }, pageContext }) => {
+const Repository = ({ data: { repository, github = null } }) => {
   return (
     <main
       css={css`
@@ -97,7 +97,7 @@ const Repository = ({ data: { repository }, pageContext }) => {
       /> */}
       {repository.descriptionSource === "readme" && (
         <ReactMarkdown
-          children={pageContext.githubMarkdown}
+          children={github.resource.object.text.replaceAll("/blob/", "/raw/")}
           disallowedElements={["h1"]}
           remarkPlugins={[
             [
@@ -117,7 +117,11 @@ const Repository = ({ data: { repository }, pageContext }) => {
 }
 
 export const query = graphql`
-  query ($repositoryId: String!) {
+  query (
+    $repositoryId: String!
+    $withGitHubReadme: Boolean!
+    $repositoryUrl: GitHub_URI!
+  ) {
     repository: sanityRepository(_id: { eq: $repositoryId }) {
       projectTitle
       authors {
@@ -135,6 +139,20 @@ export const query = graphql`
       }
       descriptionSource
       _rawBody
+    }
+    github @include(if: $withGitHubReadme) {
+      resource(url: $repositoryUrl) {
+        ... on GitHub_Repository {
+          nameWithOwner
+          url
+          updatedAt
+          object(expression: "master:README.md") {
+            ... on GitHub_Blob {
+              text
+            }
+          }
+        }
+      }
     }
   }
 `
