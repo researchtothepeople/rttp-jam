@@ -109,7 +109,7 @@ exports.createPages = async ({
               )
           : null
 
-      createPage({
+      return createPage({
         path: `/results/${repository.slug?.current}`,
         component: path.resolve(`src/templates/Repository.js`),
         context: {
@@ -119,7 +119,7 @@ exports.createPages = async ({
       })
     }),
 
-    res.data.notes.nodes.map((note) => {
+    res.data.notes.nodes.map((note) =>
       createPage({
         path: `/notes/${note.slug?.current}`,
         component: path.resolve(`src/templates/Note.js`),
@@ -127,7 +127,7 @@ exports.createPages = async ({
           noteId: note._id,
         },
       })
-    }),
+    ),
 
     createRedirect({
       fromPath: `/edit`,
