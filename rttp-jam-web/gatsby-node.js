@@ -74,11 +74,11 @@ exports.createPages = async ({
       //   repository?.studyCase?.slug.current || "general"
       // }
       let readme =
-        (await repository.descriptionSource) === "readme" &&
-        fetch("https://api.github.com/graphql", {
-          method: "POST",
-          body: JSON.stringify({
-            query: `
+        repository.descriptionSource === "readme"
+          ? await fetch("https://api.github.com/graphql", {
+              method: "POST",
+              body: JSON.stringify({
+                query: `
           query GET_REPO_README_FROM_URL ($url: URI!) {
             resource(url: $url) {
               ... on Repository {
@@ -94,19 +94,20 @@ exports.createPages = async ({
             }
           }
           `,
-            variables: {
-              url: repository.repositoryUrl,
-            },
-          }),
-          headers: {
-            "content-type": "application/json",
-            authorization: "bearer " + process.env.GITHUB_API_TOKEN,
-          },
-        })
-          .then((r) => r.json())
-          .then((r) =>
-            r.data.resource.object.text.replaceAll("/blob/", "/raw/")
-          )
+                variables: {
+                  url: repository.repositoryUrl,
+                },
+              }),
+              headers: {
+                "content-type": "application/json",
+                authorization: "bearer " + process.env.GITHUB_API_TOKEN,
+              },
+            })
+              .then((r) => r.json())
+              .then((r) =>
+                r.data.resource.object.text.replaceAll("/blob/", "/raw/")
+              )
+          : null
 
       createPage({
         path: `/results/${repository.slug?.current}`,
