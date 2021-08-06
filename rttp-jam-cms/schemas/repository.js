@@ -4,13 +4,19 @@ import SlugInput from "../components/Slug"
 
 export default {
   name: "repository",
-  title: "Repositories",
+  title: "Results",
   type: "document",
   icon,
   fields: [
     {
+      name: "studyCase",
+      title: "Study Case",
+      type: "reference",
+      to: [{ type: "studyCase" }],
+    },
+    {
       name: "repositoryUrl",
-      title: "GitHub Repository URL",
+      title: "GitHub Repository Link",
       type: "url",
       inputComponent: RepoUrl,
       validation: (Rule) =>
@@ -21,7 +27,7 @@ export default {
     {
       name: "slug",
       title: "URL",
-      description: "Click “Generate” to use the repository name.",
+      description: "Click “Generate” to use the repository name if it exists.",
       type: "slug",
       inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
@@ -45,12 +51,6 @@ export default {
     //   },
     // },
     {
-      name: "studyCase",
-      title: "Study Case",
-      type: "reference",
-      to: [{ type: "studyCase" }],
-    },
-    {
       name: "projectTitle",
       title: "Project Title",
       type: "text",
@@ -61,6 +61,9 @@ export default {
       title: "Authors",
       type: "array",
       of: [{ type: "author" }],
+      options: {
+        editModal: "popover",
+      },
     },
     {
       name: "teamAffiliation",
@@ -81,6 +84,7 @@ export default {
         ],
         layout: "radio",
       },
+      initialValue: "manual",
     },
     // {
     //   name: "description",
@@ -99,24 +103,11 @@ export default {
       projectTitle: "projectTitle",
       studyCaseName: "studyCase.name",
       studyCaseTopic: "studyCase.topic",
-      author0: "authors.0.name",
-      author1: "authors.1.name",
-      author2: "authors.2.name",
     },
-    prepare: ({
-      slug,
-      projectTitle,
-      studyCaseName,
-      studyCaseTopic,
-      author0,
-      author1,
-      author2,
-    }) => {
+    prepare: ({ slug, projectTitle, studyCaseName, studyCaseTopic }) => {
       return {
-        title: `${slug} — ${projectTitle}`,
-        subtitle: `${
-          studyCaseName ? studyCaseName + " — " : ""
-        }${author0}, ${author1}, ${author2}, et al.`,
+        title: [slug, projectTitle].filter(Boolean).join(" — "),
+        subtitle: [studyCaseName, studyCaseTopic].filter(Boolean).join(", "),
       }
     },
   },

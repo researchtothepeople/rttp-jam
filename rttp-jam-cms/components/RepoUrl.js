@@ -101,11 +101,13 @@ const RepoUrl = React.forwardRef(
           <Box marginTop={3}>
             {loading ? (
               <Spinner size={1} muted />
-            ) : queryRes ? (
+            ) : !value ? null : queryRes ? (
               <Text size={1} muted>
                 {!loading && queryRes && (
                   <span>
-                    <a href={queryRes.url}>{queryRes.nameWithOwner || null}</a>
+                    <a href={queryRes.url} target="_blank">
+                      {queryRes.nameWithOwner || null}
+                    </a>
                     {`— Refreshed at ${new Date(
                       queryRes.updatedAt
                     ).toLocaleString()}`}

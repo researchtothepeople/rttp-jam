@@ -27,7 +27,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/cases">Cases</Link>
+        <Link to="/">Cases</Link>
       </nav>
       <header
         css={css`
@@ -104,13 +104,11 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
 
 const ProfilePicture = styled(GatsbyImage)`
   width: 256px;
-  /* height: 256px; */
   object-fit: cover;
-  border-radius: 256px;
+  border-radius: 0;
   z-index: 1;
-  /* display: block; */
   flex: 0 0 256px;
-  ${({ $shouldCrop = false }) =>
+  ${({ $shouldCrop }) =>
     $shouldCrop &&
     css`
       border-radius: 256px;

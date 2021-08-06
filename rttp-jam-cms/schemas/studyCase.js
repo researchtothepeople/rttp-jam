@@ -1,5 +1,4 @@
 import { RiContactsBook2Fill as icon } from "react-icons/ri"
-import { EqualIcon as MathIcon } from "@sanity/icons"
 import SlugInput from "../components/Slug"
 
 export default {

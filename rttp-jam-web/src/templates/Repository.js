@@ -105,8 +105,13 @@ const Repository = ({ data: { repository, github = null } }) => {
               { absolutePath: repository.repositoryUrl + "/raw/master/" },
             ],
             gfm,
+            // math
           ]}
-          rehypePlugins={[raw, sanitize]}
+          rehypePlugins={[
+            raw,
+            // katex
+            sanitize,
+          ]}
         />
       )}
       {repository.descriptionSource === "manual" && (

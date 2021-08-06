@@ -1,7 +1,6 @@
 import { css } from "@emotion/react"
 import { graphql, Link } from "gatsby"
 
-// markup
 const Index = ({ data }) => {
   return (
     <main
@@ -18,7 +17,16 @@ const Index = ({ data }) => {
         }
       `}
     >
-      <h1>Cases</h1>
+      <div
+        css={css`
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        `}
+      >
+        <h1>Recent Cases</h1>
+        <Link to="/cases/">View All</Link>
+      </div>
       {data.studyCases.nodes.map((studyCase) => (
         <div
           key={studyCase._id}
@@ -38,7 +46,7 @@ const Index = ({ data }) => {
                   font-weight: normal;
                 `}
               >
-                {studyCase.topic || ""}
+                {studyCase.topic}
               </span>
             </h2>
             <p>{studyCase.time}</p>
