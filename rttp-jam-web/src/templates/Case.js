@@ -11,40 +11,61 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
         max-width: 960px;
         padding: 2rem;
         margin: auto;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        line-height: 1.35;
-        a {
-          color: #0466c8;
-          text-decoration: none;
-        }
       `}
     >
-      <nav
-        css={css`
-          padding: 1rem 0;
-          /* border-top: 1px solid #eee; */
-          border-bottom: 1px solid #eee;
-        `}
-      >
-        <Link to="/">Home</Link>
-        {" | "}
-        <Link to="/cases/">Cases</Link>
-      </nav>
-      <header
-        css={css`
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-top: 1rem;
-        `}
-      >
-        <div
+      <header>
+        <nav
           css={css`
-            margin-right: 4rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
           `}
         >
-          <h1>
+          <Link to="/">Home</Link>
+        </nav>
+      </header>
+      <section
+        css={css`
+          display: grid;
+          margin-top: 3rem;
+          grid-template-columns: 160px 1fr;
+          gap: 40px;
+        `}
+      >
+        <div>
+          {studyCase.photo && (
+            <ProfilePicture
+              image={studyCase.photo.asset.gatsbyImageData}
+              alt={`A photo of ${studyCase.name}.`}
+              $shouldCrop={studyCase.type === "person"}
+            />
+          )}
+          {studyCase.caseDataTypes.length > 0 && (
+            <div
+              css={css`
+                margin-top: 3rem;
+                border-top: 1px solid #eee;
+                font-size: 0.875rem;
+                color: var(--FG2);
+              `}
+            >
+              <h2
+                css={css`
+                  font-size: 1em;
+                  margin-bottom: 0.25em;
+                `}
+              >
+                Available Data
+              </h2>
+              <p>{studyCase.caseDataTypes.flatMap(Object.values).join(", ")}</p>
+            </div>
+          )}
+        </div>
+        <div>
+          <h1
+            css={css`
+              margin-top: 0;
+            `}
+          >
             {studyCase.name}
             <br />
             <span
@@ -57,69 +78,79 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
           </h1>
           <BlockContent blocks={studyCase._rawBio} />
         </div>
-        <div>
-          {studyCase.photo && (
-            <ProfilePicture
-              image={studyCase.photo.asset.gatsbyImageData}
-              alt={`A photo of ${studyCase.name}.`}
-              $shouldCrop={studyCase.type === "person"}
-            />
-          )}
-        </div>
-      </header>
-      <main>
-        {repositories.nodes.length > 0 && (
-          <Section>
-            <h2>Results</h2>
+      </section>
+      {repositories.nodes.length > 0 && (
+        <Section>
+          <h2>Results</h2>
+          <ul
+            css={css`
+              list-style: none;
+              padding: 0;
+            `}
+          >
             {repositories.nodes.map((repository) => (
-              <div
-                key={repository._id}
-                css={css`
-                  padding: 1rem 0;
-                `}
-              >
-                <Link to={`/results/${repository.slug.current}`}>
+              <li key={repository._id}>
+                <Link to={`/results/${repository.slug?.current}`}>
                   {repository.projectTitle}
                 </Link>
-              </div>
+                <div
+                  css={css`
+                    color: var(--FG2);
+                    font-size: 0.75rem;
+                    margin-left: 1ch;
+                    margin-bottom: 1em;
+                  `}
+                >
+                  {repository.authors.flatMap(Object.values).join(", ")}
+                </div>
+              </li>
             ))}
-          </Section>
-        )}
-        {notes.nodes.length > 0 && (
-          <Section>
-            <h2>Notes</h2>
+          </ul>
+        </Section>
+      )}
+      {notes.nodes.length > 0 && (
+        <Section>
+          <h2>Notes</h2>
+          <ul
+            css={css`
+              list-style: none;
+              padding: 0;
+            `}
+          >
             {notes.nodes.map((note) => (
-              <div
+              <li
                 key={note._id}
                 css={css`
-                  padding: 1rem 0;
+                  margin-bottom: 1em;
                 `}
               >
-                <Link to={`/notes/${note.slug.current}`}>{note.title}</Link>
-              </div>
+                <Link to={`/notes/${note.slug?.current}`}>{note.title}</Link>
+              </li>
             ))}
-          </Section>
-        )}
-      </main>
+          </ul>
+        </Section>
+      )}
     </div>
   )
 }
 
 const ProfilePicture = styled(GatsbyImage)`
-  width: 256px;
   object-fit: cover;
   border-radius: 0;
   z-index: 1;
-  flex: 0 0 256px;
   ${({ $shouldCrop }) =>
     $shouldCrop &&
     css`
-      border-radius: 256px;
+      border-radius: 1024px;
     `}
 `
 const Section = styled.section`
   border-top: 1px solid #eee;
   margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 40px;
+  align-items: baseline;
 `
 
 export const query = graphql`
@@ -138,10 +169,14 @@ export const query = graphql`
           gatsbyImageData(placeholder: NONE)
         }
       }
+      caseDataTypes {
+        value
+      }
       _rawBio
     }
     repositories: allSanityRepository(
       filter: { studyCase: { _id: { eq: $studyCaseId } } }
+      sort: { fields: slug___current, order: ASC }
     ) {
       nodes {
         _id
@@ -151,6 +186,9 @@ export const query = graphql`
         }
         studyCase {
           _id
+        }
+        authors {
+          name
         }
       }
     }

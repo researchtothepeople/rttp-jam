@@ -2,6 +2,7 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 import styled, { css } from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
+import { RiArrowRightSLine as Chevron } from "react-icons/ri"
 
 const Index = ({ data }) => {
   return (
@@ -10,13 +11,6 @@ const Index = ({ data }) => {
         max-width: 960px;
         padding: 2rem;
         margin: auto;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        line-height: 1.35;
-        a {
-          color: #0466c8;
-          text-decoration: none;
-        }
       `}
     >
       <div
@@ -26,8 +20,7 @@ const Index = ({ data }) => {
           align-items: baseline;
         `}
       >
-        <h1>Recent Cases</h1>
-        <Link to="/cases/">View All</Link>
+        <h1>Cases</h1>
       </div>
       {data.studyCases.nodes.map((studyCase) => (
         <div
@@ -69,10 +62,36 @@ const Index = ({ data }) => {
                 {studyCase.topic}
               </span>
             </h2>
+            <p>{studyCase.summary}</p>
           </div>
           <div>
-            <p>{studyCase.time}</p>
-            <Link to={"/cases/" + studyCase.slug.current}>Case Detail</Link>
+            <p>
+              <Link to={"/cases/" + studyCase.slug.current}>
+                Case Detail{" "}
+                <Chevron
+                  aria-hidden
+                  css={css`
+                    vertical-align: middle;
+                  `}
+                />
+              </Link>
+            </p>
+            <p
+              css={css`
+                font-size: 0.75rem;
+                color: #666;
+              `}
+            >
+              {studyCase.caseDataTypes.flatMap(Object.values).join(", ")}
+            </p>
+            <p
+              css={css`
+                font-size: 0.75rem;
+                color: #666;
+              `}
+            >
+              {studyCase.time}
+            </p>
           </div>
         </div>
       ))}
@@ -95,10 +114,7 @@ const ProfilePicture = styled(GatsbyImage)`
 
 export const query = graphql`
   {
-    studyCases: allSanityStudyCase(
-      sort: { fields: launchDate, order: DESC }
-      limit: 3
-    ) {
+    studyCases: allSanityStudyCase(sort: { fields: launchDate, order: DESC }) {
       nodes {
         name
         topic
@@ -107,6 +123,10 @@ export const query = graphql`
         }
         _id
         time
+        summary
+        caseDataTypes {
+          value
+        }
         type
         photo {
           asset {

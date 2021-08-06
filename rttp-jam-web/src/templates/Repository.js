@@ -10,24 +10,17 @@ import sanitize from "rehype-sanitize"
 
 const Repository = ({ data: { repository, github = null } }) => {
   return (
-    <main
+    <div
       css={css`
         max-width: 960px;
         padding: 2rem;
         margin: auto;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        line-height: 1.35;
-        a {
-          color: #0466c8;
-          text-decoration: none;
-        }
         img {
           max-width: 100%;
         }
       `}
     >
-      <div
+      <nav
         css={css`
           padding: 1rem 0;
           border-bottom: 1px solid #eee;
@@ -35,92 +28,104 @@ const Repository = ({ data: { repository, github = null } }) => {
       >
         <Link to="/">Home</Link>
         {" | "}
-        <Link to="/">Cases</Link>
-        {repository?.studyCase && " / "}
         {repository?.studyCase && (
           <Link to={"/cases/" + repository?.studyCase?.slug?.current}>
             {repository?.studyCase?.name}: {repository?.studyCase?.topic}
           </Link>
         )}
-      </div>
-      <div
-        css={css`
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          border-bottom: 1px solid #eee;
-        `}
-      >
-        <h1
-          css={css`
-            font-size: 1.75rem;
-            line-height: 1.2;
-          `}
-        >
-          {repository.projectTitle}
-        </h1>
+        {" / Results"}
+      </nav>
+      <main>
         <div
           css={css`
-            border-left: 1px solid #eee;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 24px;
-            margin-left: 24px;
-          `}
-        >
-          {repository.authors?.map((author) => (
-            <div key={author.name}>
-              {author.name}
-              {author.affiliation && (
-                <span
-                  css={css`
-                    font-size: 0.5em;
-                    margin-left: 1em;
-                  `}
-                >
-                  {author.affiliation}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      {repository.repositoryUrl && (
-        <div
-          css={css`
-            padding: 1rem 0;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
             border-bottom: 1px solid #eee;
           `}
         >
-          <a href={repository.repositoryUrl}>GitHub Repository</a>
+          <h1
+            css={css`
+              font-size: 1.75rem;
+              line-height: 1.2;
+              margin: 1rem 0;
+            `}
+          >
+            {repository.projectTitle}
+          </h1>
+          <div
+            css={css`
+              border-left: 1px solid #eee;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              padding-left: 24px;
+              margin-left: 24px;
+            `}
+          >
+            {repository.authors?.map((author) => (
+              <div key={author.name}>
+                {author.name}
+                {author.affiliation && (
+                  <span
+                    css={css`
+                      font-size: 0.5em;
+                      margin-left: 1em;
+                    `}
+                  >
+                    {author.affiliation}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      )}
-      {/* <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        children={repository.description}
-      /> */}
-      {repository.descriptionSource === "readme" && (
-        <ReactMarkdown
-          children={github.resource.object.text.replaceAll("/blob/", "/raw/")}
-          disallowedElements={["h1"]}
-          remarkPlugins={[
-            [
-              imgLinks,
-              { absolutePath: repository.repositoryUrl + "/raw/master/" },
-            ],
-            gfm,
-            // math
-          ]}
-          rehypePlugins={[
-            raw,
-            // katex
-            sanitize,
-          ]}
-        />
-      )}
-      {repository.descriptionSource === "manual" && (
-        <PortableText blocks={repository._rawBody} />
-      )}
-    </main>
+        {repository.repositoryUrl && (
+          <div
+            css={css`
+              padding: 1rem 0;
+              border-bottom: 1px solid #eee;
+            `}
+          >
+            <a href={repository.repositoryUrl}>GitHub Repository</a>
+          </div>
+        )}
+        <div
+          css={css`
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+          `}
+        >
+          {/* <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            children={repository.description}
+          /> */}
+          {repository.descriptionSource === "readme" && (
+            <ReactMarkdown
+              children={github.resource.object.text.replaceAll(
+                "/blob/",
+                "/raw/"
+              )}
+              disallowedElements={["h1"]}
+              remarkPlugins={[
+                [
+                  imgLinks,
+                  { absolutePath: repository.repositoryUrl + "/raw/master/" },
+                ],
+                gfm,
+                // math
+              ]}
+              rehypePlugins={[
+                raw,
+                // katex
+                sanitize,
+              ]}
+            />
+          )}
+          {repository.descriptionSource === "manual" && (
+            <PortableText blocks={repository._rawBody} />
+          )}
+        </div>
+      </main>
+    </div>
   )
 }
 

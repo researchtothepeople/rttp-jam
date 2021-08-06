@@ -72,6 +72,13 @@ export default {
       type: "richText",
     },
     {
+      name: "summary",
+      title: "Summary",
+      type: "text",
+      rows: 3,
+      validation: (Rule) => Rule.max(280),
+    },
+    {
       name: "caseDataTypes",
       title: "Case Data Types",
       type: "tags",
