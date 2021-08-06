@@ -30,6 +30,23 @@ export default {
       type: "string",
     },
     {
+      name: "type",
+      title: "Case Type",
+      type: "string",
+      options: {
+        list: [
+          {
+            value: "person",
+            title: "Single Patient",
+          },
+          { value: "cohort", title: "Cohort" },
+        ],
+        layout: "radio",
+        direction: "horizontal",
+      },
+      initialValue: "person",
+    },
+    {
       name: "photo",
       title: "Photo",
       description: "Profile photo or organization logo.",
@@ -50,52 +67,42 @@ export default {
       initialValue: () => new Date().toISOString().substring(0, 10),
     },
     {
-      name: "originalCaseUrl",
-      title: "Original Case URL",
-      type: "url",
-    },
-    {
-      name: "caseDataUrl",
-      title: "Case Data URL",
-      type: "url",
-    },
-    {
-      name: "caseData",
-      title: "Case Data Description",
-      type: "string",
-    },
-    {
       name: "bio",
       title: "Biography",
       type: "richText",
     },
+    {
+      name: "caseDataTypes",
+      title: "Case Data Types",
+      type: "tags",
+      options: {
+        closeMenuOnSelect: false,
+      },
+    },
     // {
-    //   name: "repositories",
-    //   title: "Teams/Repositories Order",
+    //   title: "Case Data Types",
+    //   name: "caseDataTypes",
     //   type: "array",
-    //   weak: true,
     //   of: [
     //     {
-    //       type: "reference",
-    //       to: [
-    //         {
-    //           type: "repository",
-    //         },
-    //       ],
-    //       options: {
-    //         filter: ({ document }) => {
-    //           console.log(document._id.split("."))
-    //           return {
-    //             filter: "studyCase._ref == $studyCaseRef",
-    //             params: {
-    //               studyCaseRef: document._id.split(".").pop(),
-    //             },
-    //           }
-    //         },
-    //       },
+    //       type: "string",
     //     },
     //   ],
+    //   options: {
+    //     layout: "tags",
+    //   },
+    //   validation: (Rule) => Rule.unique(),
     // },
+    {
+      name: "sponsors",
+      title: "Sponsors",
+      type: "array",
+      of: [{ type: "sponsor" }],
+      options: {
+        layout: "grid",
+        editModal: "popover",
+      },
+    },
   ],
   orderings: [
     {

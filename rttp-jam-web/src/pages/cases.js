@@ -1,5 +1,7 @@
 import { graphql, Link } from "gatsby"
+import styled from "@emotion/styled"
 import { css } from "@emotion/react"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 const Cases = ({ data }) => {
   return (
@@ -17,19 +19,36 @@ const Cases = ({ data }) => {
         }
       `}
     >
-      <h1>Cases</h1>
+      <h1>All Cases</h1>
       {data.studyCases.nodes.map((studyCase) => (
         <div
           key={studyCase._id}
           css={css`
             border-top: 1px solid #eee;
-            padding: 1rem 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            padding: 2rem 0 2rem;
+            display: flex;
+            gap: 3rem;
           `}
         >
           <div>
-            <h2>
+            {studyCase.photo && (
+              <ProfilePicture
+                image={studyCase.photo.asset.gatsbyImageData}
+                alt={`A photo of ${studyCase.name}.`}
+                $shouldCrop={studyCase.type === "person"}
+              />
+            )}
+          </div>
+          <div
+            css={css`
+              flex-grow: 1;
+            `}
+          >
+            <h2
+              css={css`
+                margin-top: 0;
+              `}
+            >
               {studyCase.name}
               <br />
               <span
@@ -49,6 +68,19 @@ const Cases = ({ data }) => {
   )
 }
 
+const ProfilePicture = styled(GatsbyImage)`
+  width: 128px;
+  object-fit: cover;
+  border-radius: 0;
+  z-index: 1;
+  flex: 0 0 128px;
+  ${({ $shouldCrop }) =>
+    $shouldCrop &&
+    css`
+      border-radius: 128px;
+    `}
+`
+
 export const query = graphql`
   {
     studyCases: allSanityStudyCase(sort: { fields: launchDate, order: DESC }) {
@@ -60,6 +92,12 @@ export const query = graphql`
         }
         _id
         time
+        type
+        photo {
+          asset {
+            gatsbyImageData
+          }
+        }
       }
     }
   }

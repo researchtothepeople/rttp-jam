@@ -60,6 +60,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
             <ProfilePicture
               image={studyCase.photo.asset.gatsbyImageData}
               alt={`A photo of ${studyCase.name}.`}
+              $shouldCrop={studyCase.type === "person"}
             />
           )}
         </div>
@@ -128,6 +129,7 @@ export const query = graphql`
       }
       name
       topic
+      type
       time
       photo {
         asset {
