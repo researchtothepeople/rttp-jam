@@ -45,10 +45,16 @@ module.exports = {
         batch: true,
       },
     },
+    "gatsby-plugin-styled-components",
     "gatsby-plugin-image",
-    "gatsby-plugin-emotion",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/components/Layout.js`),
+      },
+    },
     "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-manifest",

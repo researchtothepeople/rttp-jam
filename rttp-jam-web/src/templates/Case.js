@@ -1,6 +1,6 @@
+import * as React from "react"
 import { graphql, Link } from "gatsby"
-import { css } from "@emotion/react"
-import styled from "@emotion/styled"
+import styled, { css } from "styled-components"
 import BlockContent from "@sanity/block-content-to-react"
 import { GatsbyImage } from "gatsby-plugin-image"
 
@@ -27,7 +27,9 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/">Cases</Link>
+        <Link to="/">Home</Link>
+        {" | "}
+        <Link to="/cases/">Cases</Link>
       </nav>
       <header
         css={css`

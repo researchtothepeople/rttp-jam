@@ -1,6 +1,6 @@
+import * as React from "react"
 import { graphql, Link } from "gatsby"
-import styled from "@emotion/styled"
-import { css } from "@emotion/react"
+import styled, { css } from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 const Index = ({ data }) => {
@@ -72,7 +72,7 @@ const Index = ({ data }) => {
           </div>
           <div>
             <p>{studyCase.time}</p>
-            <Link to={studyCase.slug.current}>Case Detail</Link>
+            <Link to={"/cases/" + studyCase.slug.current}>Case Detail</Link>
           </div>
         </div>
       ))}

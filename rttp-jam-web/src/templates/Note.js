@@ -1,5 +1,6 @@
+import * as React from "react"
 import { graphql, Link } from "gatsby"
-import { css } from "@emotion/react"
+import styled, { css } from "styled-components"
 import BlockContent from "@sanity/block-content-to-react"
 
 const Note = ({ data: { note } }) => {
@@ -24,6 +25,8 @@ const Note = ({ data: { note } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
+        <Link to="/">Home</Link>
+        {" | "}
         <Link to="/cases">Cases</Link>
         {" / "}
         <Link to={"/cases/" + note.studyCase.slug.current}>

@@ -1,5 +1,6 @@
+import * as React from "react"
 import { graphql, Link } from "gatsby"
-import { css } from "@emotion/react"
+import styled, { css } from "styled-components"
 import ReactMarkdown from "react-markdown"
 import PortableText from "../components/PortableText"
 import imgLinks from "@pondorasti/remark-img-links"
@@ -32,6 +33,8 @@ const Repository = ({ data: { repository, github = null } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
+        <Link to="/">Home</Link>
+        {" | "}
         <Link to="/">Cases</Link>
         {repository?.studyCase && " / "}
         {repository?.studyCase && (
