@@ -20,7 +20,9 @@
     "markdown",
     "latex-input",
     "dashboard-widget-gatsby",
-    "better-slug"
+    "better-slug",
+    "documents-pane",
+    "autocomplete-tags"
   ],
   "env": {
     "development": {
