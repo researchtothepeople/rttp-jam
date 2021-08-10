@@ -30,7 +30,7 @@ module.exports = {
         token: process.env.SANITY_TOKEN,
         watchMode: process.env.NODE_ENV === "development",
         overlayDrafts: process.env.NODE_ENV === "development",
-        useCdn: !process.env.NODE_ENV === "development",
+        useCdn: !(process.env.NODE_ENV === "development"),
       },
     },
     {
@@ -43,6 +43,14 @@ module.exports = {
           Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`,
         },
         batch: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_API_KEY,
+        queries: require("./src/utils/algolia-queries"),
       },
     },
     "gatsby-plugin-styled-components",
