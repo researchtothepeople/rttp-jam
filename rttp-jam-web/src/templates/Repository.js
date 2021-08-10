@@ -92,37 +92,40 @@ const Repository = ({ data: { repository, github = null } }) => {
           css={css`
             display: grid;
             grid-template-columns: 3fr 1fr;
+            padding: 1rem 0;
           `}
         >
-          {/* <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            children={repository.description}
-          /> */}
-          {repository.descriptionSource === "readme" && (
-            <ReactMarkdown
-              children={github.resource.object.text.replaceAll(
-                "/blob/",
-                "/raw/"
-              )}
-              disallowedElements={["h1"]}
-              remarkPlugins={[
-                [
-                  imgLinks,
-                  { absolutePath: repository.repositoryUrl + "/raw/master/" },
-                ],
-                gfm,
-                // math
-              ]}
-              rehypePlugins={[
-                raw,
-                // katex
-                sanitize,
-              ]}
-            />
-          )}
-          {repository.descriptionSource === "manual" && (
-            <PortableText blocks={repository._rawBody} />
-          )}
+          <div>
+            {/* <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              children={repository.description}
+            /> */}
+            {repository.descriptionSource === "readme" && (
+              <ReactMarkdown
+                children={github.resource.object.text.replaceAll(
+                  "/blob/",
+                  "/raw/"
+                )}
+                disallowedElements={["h1"]}
+                remarkPlugins={[
+                  [
+                    imgLinks,
+                    { absolutePath: repository.repositoryUrl + "/raw/master/" },
+                  ],
+                  gfm,
+                  // math
+                ]}
+                rehypePlugins={[
+                  raw,
+                  // katex
+                  sanitize,
+                ]}
+              />
+            )}
+            {repository.descriptionSource === "manual" && (
+              <PortableText blocks={repository._rawBody} />
+            )}
+          </div>
         </div>
       </main>
     </div>
