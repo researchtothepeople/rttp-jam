@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from "styled-components"
-import "@fontsource/archivo/variable.css"
+import "@fontsource/archivo/variable-full.css"
 
 const Global = css`
   :root {
@@ -77,11 +77,9 @@ const Global = css`
     color: var(--accent);
     text-decoration: none;
 
-    nav &[aria-current] {
-      ${"" /* color: initial; */}
-      ${"" /* text-decoration: underline 0.1em; */}
-      border-bottom: 0.1em solid currentColor;
-    }
+    /* nav &[aria-current] {
+      box-shadow: currentColor 0 2px;
+    } */
   }
 
   figure {

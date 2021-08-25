@@ -3,7 +3,7 @@ import styled, { css, ThemeProvider } from "styled-components"
 import SearchBox from "../components/search/SearchBox"
 import SearchResult from "../components/search/SearchResult"
 import algoliasearch from "algoliasearch/lite"
-import { InstantSearch } from "react-instantsearch-dom"
+import { InstantSearch, PoweredBy } from "react-instantsearch-dom"
 import "instantsearch.css/themes/satellite.css"
 
 const indices = [{ name: `repositories`, title: `Repositories` }]
@@ -21,7 +21,7 @@ const Search = () => {
     []
   )
   return (
-    <div ref={rootRef}>
+    <Wrapper ref={rootRef}>
       <InstantSearch
         searchClient={searchClient}
         indexName={indices[0].name}
@@ -32,9 +32,19 @@ const Search = () => {
           show={query && query.length > 0 && hasFocus}
           indices={indices}
         />
+        <PoweredBy />
       </InstantSearch>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  max-width: 960px;
+  margin: auto;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`
 
 export default Search

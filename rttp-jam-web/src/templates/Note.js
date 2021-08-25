@@ -19,6 +19,7 @@ const Note = ({ data: { note } }) => {
         `}
       >
         <Link to="/">Home</Link>
+        {" | "}
         <Link to={"/cases/" + note.studyCase.slug.current}>
           {note.studyCase.name}: {note.studyCase.topic}
         </Link>
