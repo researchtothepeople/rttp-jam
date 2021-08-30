@@ -1,14 +1,13 @@
 {
-  "name": "rttp-jam-cms",
+  "name": "cms",
   "version": "1.0.0",
   "private": true,
   "description": "Sanity CMS UI for the RTTP results page.",
   "scripts": {
-    "dev": "sanity start",
     "start": "sanity start",
     "test": "sanity check",
-    "gql": "sanity graphql deploy --no-playground",
-    "deploy": "sanity deploy"
+    "deploy:gql": "sanity graphql deploy --no-playground",
+    "deploy:cms": "sanity deploy"
   },
   "eslintConfig": {
     "extends": [

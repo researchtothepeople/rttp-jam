@@ -1,11 +1,9 @@
 {
-  "name": "rttp-jam-web",
+  "name": "web",
   "version": "1.0.0",
   "private": true,
   "description": "Front-end UI for the RTTP results page.",
   "scripts": {
-    "dev": "gatsby develop",
-    "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
