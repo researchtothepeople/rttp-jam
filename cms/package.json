@@ -4,6 +4,7 @@
   "private": true,
   "description": "Sanity CMS UI for the RTTP results page.",
   "scripts": {
+    "dev": "sanity start",
     "start": "sanity start",
     "test": "sanity check",
     "gql": "sanity graphql deploy --no-playground",
