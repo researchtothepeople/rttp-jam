@@ -9,9 +9,6 @@ on:
 
 jobs:
   deploy:
-    defaults:
-      run:
-        working-directory: cms
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,4 +25,4 @@ jobs:
           set -e
           cat << EOF > .env.production
           EOF
-          SANITY_AUTH_TOKEN="${{ secrets.SANITY_AUTH_TOKEN }}" yarn sanity deploy
+          SANITY_AUTH_TOKEN="${{ secrets.SANITY_AUTH_TOKEN }}" yarn deploy:cms
