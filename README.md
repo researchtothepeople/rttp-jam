@@ -14,4 +14,4 @@ When installing Sanity plugins, use `sanity install` to automatically register t
 
 This repository is configured to build automatically on Gatsby Cloud and hosted Sanity Studio.
 
-A Sanity project ID is included in `rttp-jam-cms/sanity.json` and attached to the static site generator via a `.env` file. See `rttp-jam-web/env.example` for reference.
+A Sanity project ID is included in `cms/sanity.json` and attached to the static site generator via a `.env` file. See `web/env.example` for reference.

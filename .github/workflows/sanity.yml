@@ -4,14 +4,14 @@ on:
   push:
     branches: [master]
     paths:
-      - "rttp-jam-cms/**"
+      - "cms/**"
   workflow_dispatch:
 
 jobs:
   deploy:
     defaults:
       run:
-        working-directory: rttp-jam-cms
+        working-directory: cms
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
