@@ -1,12 +1,39 @@
 {
-  "name": "root",
+  "name": "@researchtothepeople/jam",
   "private": true,
-  "devDependencies": {
-    "lerna": "^4.0.0"
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "start": "FORCE_COLOR=1 lerna run start --parallel",
-    "deploy:gql": "FORCE_COLOR=1 lerna run deploy:gql --stream",
-    "deploy:cms": "FORCE_COLOR=1 lerna bootstrap --scope cms && lerna run deploy:cms --stream"
+    "deploy:gql": "FORCE_COLOR=1 lerna run deploy:gql --stream --scope cms",
+    "deploy:cms": "FORCE_COLOR=1 lerna bootstrap --scope cms && lerna run deploy:cms --stream --scope cms"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended",
+      "prettier/react"
+    ]
+  },
+  "prettier": {
+    "semi": false
+  },
+  "devDependencies": {
+    "@sanity/cli": "^2.13.0",
+    "lerna": "^4.0.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1"
   }
 }

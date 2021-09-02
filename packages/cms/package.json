@@ -1,6 +1,6 @@
 {
   "name": "cms",
-  "version": "1.0.0-alpha.0",
+  "version": "0.1.0-alpha.0",
   "private": true,
   "description": "Sanity CMS UI for the RTTP results page.",
   "scripts": {
@@ -8,21 +8,6 @@
     "test": "sanity check",
     "deploy:gql": "sanity graphql deploy --no-playground",
     "deploy:cms": "sanity deploy"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:import/errors",
-      "plugin:import/warnings",
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:jsx-a11y/recommended",
-      "plugin:prettier/recommended",
-      "prettier/react"
-    ]
-  },
-  "prettier": {
-    "semi": false
   },
   "dependencies": {
     "@sanity/base": "^2.13.0",
@@ -50,15 +35,5 @@
     "sanity-plugin-latex-input": "^1.0.1",
     "sanity-plugin-markdown": "^2.0.2",
     "styled-components": "^5.3.0"
-  },
-  "devDependencies": {
-    "@sanity/cli": "^2.13.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.2.1"
   }
 }
