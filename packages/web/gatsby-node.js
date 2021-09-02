@@ -69,7 +69,7 @@ exports.createPages = async ({
         return
       }
       createPage({
-        path: `/cases/${studyCase.slug.current}`,
+        path: `/${studyCase.slug.current}`,
         component: path.resolve(`src/templates/Case.js`),
         context: {
           studyCaseId: studyCase._id,
@@ -82,7 +82,9 @@ exports.createPages = async ({
         return
       }
       createPage({
-        path: `/results/${repository.slug.current}`,
+        path: `/${repository?.studyCase?.slug?.current || "_"}/${
+          repository.slug.current
+        }`,
         component: path.resolve(`src/templates/Repository.js`),
         context: {
           repositoryId: repository._id,
@@ -97,7 +99,7 @@ exports.createPages = async ({
         return
       }
       createPage({
-        path: `/notes/${note.slug.current}`,
+        path: `/${note?.studyCase?.slug?.current || "_"}/${note.slug.current}`,
         component: path.resolve(`src/templates/Note.js`),
         context: {
           noteId: note._id,

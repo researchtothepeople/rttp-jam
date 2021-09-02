@@ -7,27 +7,20 @@ import { RiSearchLine as SearchIcon } from "react-icons/ri"
 
 const Index = ({ data }) => {
   return (
-    <Wrapper>
-      <Header>
-        <HomeNav>
-          <HomeLink href="https://www.researchtothepeople.org/">
-            <StaticImage
-              src="../images/icon.png"
-              alt=""
-              width={36}
-              placeholder="none"
-            />
-            Research to the People
-          </HomeLink>
-          <Link to="/">Case Archive</Link>
+    <>
+      <Main>
+        <div
+          css={css`
+            display: flex;
+            align-items: baseline;
+          `}
+        >
+          <h1>Cases</h1>
           <Spacer />
           <Link to="/search">
             <SearchIcon aria-label="Search" />
           </Link>
-        </HomeNav>
-      </Header>
-      <Main>
-        <h1>Cases</h1>
+        </div>
         {data.studyCases.nodes.map((studyCase) => (
           <div
             key={studyCase._id}
@@ -72,7 +65,7 @@ const Index = ({ data }) => {
             </div>
             <div>
               <p>
-                <Link to={"/cases/" + studyCase.slug.current}>
+                <Link to={"/" + studyCase.slug.current}>
                   Case Detail{" "}
                   <Chevron
                     aria-hidden
@@ -115,74 +108,11 @@ const Index = ({ data }) => {
           <a href="https://www.sanity.io/">Sanity.io</a>
         </div>
       </Footer>
-    </Wrapper>
+    </>
   )
 }
 
-const Wrapper = styled.div``
-
-const HomeNav = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  color: black;
-  a {
-    color: inherit;
-  }
-`
-
-const Header = styled.header`
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem 0;
-`
-
-const HomeLink = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  color: black;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-variation-settings: "wdth" 80;
-`
-
-const Spacer = styled.div`
-  flex: 1 1 auto;
-`
-
-const Main = styled.main`
-  max-width: 960px;
-  margin: auto;
-`
-
-const Footer = styled.footer`
-  font-size: 0.75rem;
-  border-top: 1px solid #eee;
-  max-width: 960px;
-  margin: auto;
-  color: #999;
-  padding: 1em 0 2em;
-  display: flex;
-  justify-content: space-between;
-  a {
-    color: inherit;
-  }
-`
-
-const ProfilePicture = styled(GatsbyImage)`
-  width: 128px;
-  object-fit: cover;
-  border-radius: 0;
-  z-index: 1;
-  flex: 0 0 128px;
-  ${({ $shouldCrop }) =>
-    $shouldCrop &&
-    css`
-      border-radius: 128px;
-    `}
-`
-
+export default Index
 export const query = graphql`
   {
     studyCases: allSanityStudyCase(sort: { fields: launchDate, order: DESC }) {
@@ -209,4 +139,40 @@ export const query = graphql`
   }
 `
 
-export default Index
+const Spacer = styled.div`
+  flex: 1 1 auto;
+`
+
+const Main = styled.main`
+  max-width: 1020px;
+  padding: 0 20px;
+  margin: auto;
+`
+
+const Footer = styled.footer`
+  font-size: 0.75rem;
+  border-top: 1px solid #eee;
+  max-width: 1020px;
+  padding: 0 20px;
+  margin: auto;
+  color: #999;
+  padding: 1em 0 2em;
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: inherit;
+  }
+`
+
+const ProfilePicture = styled(GatsbyImage)`
+  width: 128px;
+  object-fit: cover;
+  border-radius: 0;
+  z-index: 1;
+  flex: 0 0 128px;
+  ${({ $shouldCrop }) =>
+    $shouldCrop &&
+    css`
+      border-radius: 128px;
+    `}
+`

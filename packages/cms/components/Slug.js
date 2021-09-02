@@ -166,7 +166,7 @@ class SlugInput extends React.Component {
                     }}
                     display="flex"
                   >
-                    <Text muted>{`${this.state.basePath}/`}</Text>
+                    <Text muted>{this.state.basePath}</Text>
                   </Card>
                 )}
                 <Box

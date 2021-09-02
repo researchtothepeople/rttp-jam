@@ -26,10 +26,10 @@ const Repository = ({ data: { repository, github = null } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/">Home</Link>
-        {" | "}
+        <Link to="/">Cases</Link>
+        {" / "}
         {repository?.studyCase && (
-          <Link to={"/cases/" + repository?.studyCase?.slug?.current}>
+          <Link to={"/" + repository?.studyCase?.slug?.current}>
             {repository?.studyCase?.name}: {repository?.studyCase?.topic}
           </Link>
         )}

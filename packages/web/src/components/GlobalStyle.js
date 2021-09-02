@@ -13,6 +13,8 @@ const Global = css`
     --FG3: #a0a0a0;
 
     --accent: #210aea;
+    --accent2: #ed1766;
+    --accent3: #c8ff47;
   }
 
   /* https://piccalil.li/blog/a-modern-css-reset/ */

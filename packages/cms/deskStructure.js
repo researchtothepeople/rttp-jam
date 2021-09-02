@@ -19,13 +19,13 @@ export const getDefaultDocumentNode = ({ documentId, schemaType }) => {
   if (schemaType === "studyCase") {
     return S.document().views([
       S.view.form(),
-      S.view.component(WebPreview).title("Preview"),
+      // S.view.component(WebPreview).title("Preview"),
     ])
   }
   if (schemaType === "repository") {
     return S.document().views([
       S.view.form(),
-      S.view.component(WebPreview).title("Preview"),
+      // S.view.component(WebPreview).title("Preview"),
     ])
   }
 }

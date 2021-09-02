@@ -18,9 +18,9 @@ const Note = ({ data: { note } }) => {
           border-bottom: 1px solid #eee;
         `}
       >
-        <Link to="/">Home</Link>
-        {" | "}
-        <Link to={"/cases/" + note.studyCase.slug.current}>
+        <Link to="/">Cases</Link>
+        {" / "}
+        <Link to={"/" + note.studyCase.slug.current}>
           {note.studyCase.name}: {note.studyCase.topic}
         </Link>
         {" / Notes"}

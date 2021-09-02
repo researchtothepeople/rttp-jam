@@ -5,7 +5,7 @@
     "dataset": "production"
   },
   "project": {
-    "name": "RTTP Jam"
+    "name": "RTTP Case Archive"
   },
   "plugins": [
     "@sanity/base",
@@ -26,9 +26,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [

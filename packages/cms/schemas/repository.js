@@ -1,3 +1,4 @@
+import sanityClient from "part:@sanity/base/client"
 import { RiNewspaperFill as icon } from "react-icons/ri"
 import RepoUrl from "../components/RepoUrl"
 import SlugInput from "../components/Slug"
@@ -32,7 +33,15 @@ export default {
       inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        basePath: "https://cases.researchtothepeople.org/results",
+        basePath: "cases.researchtothepeople.org/[case-name]/",
+        //   (doc) => {
+        //   const query = `*[_type == "studyCase" && _id == $id]{slug{current}}`
+        //   const params = { id: doc.studyCase._ref }
+        //   return sanityClient.fetch(query, params).then((res) => {
+        //     console.log(res)
+        //     return
+        //   })
+        // },
         source: (doc) => new URL(doc.repositoryUrl).pathname.split("/")[2],
         slugify: (input) => input.replace(/\s+/g, "-"),
       },

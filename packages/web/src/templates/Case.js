@@ -20,7 +20,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
             border-bottom: 1px solid #eee;
           `}
         >
-          <Link to="/">Home</Link>
+          <Link to="/">Cases</Link>
         </nav>
       </header>
       <section
@@ -90,7 +90,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
           >
             {repositories.nodes.map((repository) => (
               <li key={repository._id}>
-                <Link to={`/results/${repository.slug?.current}`}>
+                <Link to={`${repository.slug?.current}`}>
                   {repository.projectTitle}
                 </Link>
                 <div
@@ -124,7 +124,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
                   margin-bottom: 1em;
                 `}
               >
-                <Link to={`/notes/${note.slug?.current}`}>{note.title}</Link>
+                <Link to={`${note.slug?.current}`}>{note.title}</Link>
               </li>
             ))}
           </ul>
