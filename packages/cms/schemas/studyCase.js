@@ -20,7 +20,7 @@ export default {
       inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        basePath: "cases.researchtothepeople.org/",
+        basePath: "journal.researchtothepeople.org/",
         source: "name",
       },
     },

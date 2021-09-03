@@ -11,12 +11,20 @@ const Index = ({ data }) => {
       <Main>
         <div
           css={css`
-            display: flex;
+            display: grid;
+            grid-template-columns: 128px 3fr auto;
+            gap: 3rem;
             align-items: baseline;
           `}
         >
-          <h1>Cases</h1>
-          <Spacer />
+          <h1>Results</h1>
+          <p
+            css={css`
+              color: #666;
+            `}
+          >
+            Quickly iterated, non-peer reviewed patient research.
+          </p>
           <Link to="/search">
             <SearchIcon aria-label="Search" />
           </Link>
@@ -28,8 +36,9 @@ const Index = ({ data }) => {
               border-top: 1px solid #eee;
               padding: 2rem 0 2rem;
               display: grid;
-              grid-template-columns: auto 3fr 1fr;
+              grid-template-columns: 128px 3fr auto;
               gap: 3rem;
+              position: relative;
             `}
           >
             <div>
@@ -61,23 +70,11 @@ const Index = ({ data }) => {
                   {studyCase.topic}
                 </span>
               </h2>
-              <p>{studyCase.summary}</p>
-            </div>
-            <div>
-              <p>
-                <Link to={"/" + studyCase.slug.current}>
-                  Case Detail{" "}
-                  <Chevron
-                    aria-hidden
-                    css={css`
-                      vertical-align: middle;
-                    `}
-                  />
-                </Link>
-              </p>
+              {/* <p>{studyCase.summary}</p> */}
               <p
                 css={css`
                   font-size: 0.75rem;
+                  margin: 0;
                   color: #666;
                 `}
               >
@@ -92,6 +89,29 @@ const Index = ({ data }) => {
                 {studyCase.time}
               </p>
             </div>
+            <div>
+              <p>
+                <Link
+                  to={"/" + studyCase.slug.current}
+                  css={css`
+                    ::after {
+                      display: block;
+                      content: "";
+                      position: absolute;
+                      inset: 0;
+                    }
+                  `}
+                >
+                  See Results{" "}
+                  <Chevron
+                    aria-hidden
+                    css={css`
+                      vertical-align: middle;
+                    `}
+                  />
+                </Link>
+              </p>
+            </div>
           </div>
         ))}
       </Main>
@@ -101,7 +121,8 @@ const Index = ({ data }) => {
           <a href="https://www.researchtothepeople.org/">
             Research to the People
           </a>
-          , unless otherwise noticed.
+          , unless otherwise noticed. Research results belong to their
+          respective contributors.
         </div>
         <div>
           Structured content powered by{" "}
@@ -140,7 +161,7 @@ export const query = graphql`
 `
 
 const Spacer = styled.div`
-  flex: 1 1 auto;
+  flex: 1 1 ${({ $basis }) => $basis || 0};
 `
 
 const Main = styled.main`

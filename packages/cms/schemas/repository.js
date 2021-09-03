@@ -33,7 +33,7 @@ export default {
       inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        basePath: "cases.researchtothepeople.org/[case-name]/",
+        basePath: "journal.researchtothepeople.org/[case-name]/",
         //   (doc) => {
         //   const query = `*[_type == "studyCase" && _id == $id]{slug{current}}`
         //   const params = { id: doc.studyCase._ref }

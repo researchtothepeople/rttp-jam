@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
           </HomeLink>
           <Spacer />
           <NavLinks>
-            <a href="https://www.researchtothepeople.org/cases">Cases</a>
+            <a href="https://www.researchtothepeople.org/cases">Results</a>
             <Link to="/">Results</Link>
             <a href="https://www.researchtothepeople.org/team">Team</a>
             <a href="https://www.researchtothepeople.org/donate">Donate</a>

@@ -20,7 +20,7 @@ const Case = ({ data: { studyCase, repositories, notes } }) => {
             border-bottom: 1px solid #eee;
           `}
         >
-          <Link to="/">Cases</Link>
+          <Link to="/">Results</Link>
         </nav>
       </header>
       <section

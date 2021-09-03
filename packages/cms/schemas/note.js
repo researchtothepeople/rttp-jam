@@ -28,7 +28,7 @@ export default {
       inputComponent: SlugInput,
       validation: (Rule) => Rule.required(),
       options: {
-        basePath: "cases.researchtothepeople.org/[case-name]/",
+        basePath: "journal.researchtothepeople.org/[case-name]/",
         source: async (doc) => {
           const studyCase = await client.getDocument(doc.studyCase._ref)
           return [studyCase.slug.current, doc.title].filter(Boolean).join("-")
