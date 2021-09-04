@@ -5,7 +5,7 @@
     "dataset": "production"
   },
   "project": {
-    "name": "RTTP Case Archive"
+    "name": "RTTP Results Journal"
   },
   "plugins": [
     "@sanity/base",
