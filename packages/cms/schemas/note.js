@@ -30,8 +30,9 @@ export default {
       options: {
         basePath: "journal.researchtothepeople.org/[case-name]/",
         source: async (doc) => {
-          const studyCase = await client.getDocument(doc.studyCase._ref)
-          return [studyCase.slug.current, doc.title].filter(Boolean).join("-")
+          // const studyCase = await client.getDocument(doc.studyCase._ref)
+          // return [studyCase.slug.current, doc.title].filter(Boolean).join("-")
+          return doc.title
         },
       },
     },

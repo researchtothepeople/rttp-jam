@@ -7,7 +7,8 @@
   "scripts": {
     "start": "FORCE_COLOR=1 lerna run start --parallel",
     "deploy:gql": "FORCE_COLOR=1 lerna run deploy:gql --stream --scope cms",
-    "deploy:cms": "FORCE_COLOR=1 lerna bootstrap --scope cms && lerna run deploy:cms --stream --scope cms"
+    "bootstrap:cms": "FORCE_COLOR=1 lerna bootstrap --scope cms",
+    "deploy:cms": "FORCE_COLOR=1 lerna run deploy:cms --stream --scope cms"
   },
   "eslintConfig": {
     "extends": [

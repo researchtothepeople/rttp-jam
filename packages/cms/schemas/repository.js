@@ -43,7 +43,7 @@ export default {
         //   })
         // },
         source: (doc) => new URL(doc.repositoryUrl).pathname.split("/")[2],
-        slugify: (input) => input.replace(/\s+/g, "-"),
+        slugify: (input) => input.replace(/\s+/g, "-"), // prevent letter case changes
       },
     },
     // {

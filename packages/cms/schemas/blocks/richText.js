@@ -7,10 +7,10 @@ export default {
 
   of: [
     { type: "figure", title: "Figure", icon: ImageIcon },
-    { type: "latex", title: "LaTeX Block", icon: EqualIcon },
+    { type: "latex", title: "Math Block", icon: EqualIcon },
     {
       type: "block",
-      of: [{ type: "latex", title: "Inline LaTeX", icon: EqualIcon }],
+      of: [{ type: "latex", title: "Inline Math", icon: EqualIcon }],
       styles: [
         { title: "Paragraph", value: "normal" },
         { title: "Heading 2", value: "h2" },
