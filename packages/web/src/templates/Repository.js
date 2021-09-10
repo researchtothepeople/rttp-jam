@@ -9,7 +9,6 @@ import raw from "rehype-raw"
 import sanitize from "rehype-sanitize"
 
 const Repository = ({ data: { repository, github = null } }) => {
-  console.log(githubText)
   const githubText =
     (repository.descriptionSource === "readme" &&
       github?.resource?.object?.text) ||
