@@ -23,7 +23,7 @@ const Index = ({ data }) => {
               color: #666;
             `}
           >
-            Quickly iterated patient research.
+            Quickly iterated medical research for patients.
           </p>
           <Link to="/search">
             <SearchIcon aria-label="Search" />
