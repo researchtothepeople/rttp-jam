@@ -112,7 +112,7 @@ const Repository = ({ data: { repository, github = null } }) => {
                   [
                     imgLinks,
                     {
-                      absolutePath: github.resource.object.url + "/raw/master/",
+                      absolutePath: repository.repositoryUrl + "/raw/master/",
                     },
                   ],
                   gfm,
