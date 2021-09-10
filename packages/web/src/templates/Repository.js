@@ -9,6 +9,11 @@ import raw from "rehype-raw"
 import sanitize from "rehype-sanitize"
 
 const Repository = ({ data: { repository, github = null } }) => {
+  console.log(githubText)
+  const githubText =
+    (repository.descriptionSource === "readme" &&
+      github?.resource?.object?.text) ||
+    null
   return (
     <div
       css={css`
@@ -100,17 +105,16 @@ const Repository = ({ data: { repository, github = null } }) => {
               remarkPlugins={[remarkGfm]}
               children={repository.description}
             /> */}
-            {repository.descriptionSource === "readme" && (
+            {githubText && (
               <ReactMarkdown
-                children={github.resource.object.text.replaceAll(
-                  "/blob/",
-                  "/raw/"
-                )}
+                children={githubText.replace(/\/blob\//g, "/raw/")}
                 disallowedElements={["h1"]}
                 remarkPlugins={[
                   [
                     imgLinks,
-                    { absolutePath: repository.repositoryUrl + "/raw/master/" },
+                    {
+                      absolutePath: github.resource.object.url + "/raw/master/",
+                    },
                   ],
                   gfm,
                   // math
