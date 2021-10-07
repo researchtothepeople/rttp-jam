@@ -25,7 +25,7 @@ const serializers = {
       )
     },
     file: ({ node }) => {
-      return <pre>{JSON.stringify(node, null, " ")}</pre>
+      return <a href={node.asset.url}>{node.asset.originalFilename}</a>
     },
   },
 }

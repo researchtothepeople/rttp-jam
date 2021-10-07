@@ -104,6 +104,7 @@ export default {
       name: "body",
       title: "Body",
       type: "richText",
+      hidden: ({ document }) => !(document?.descriptionSource === "manual"),
     },
   ],
   preview: {

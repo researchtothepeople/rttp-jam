@@ -116,7 +116,7 @@ const RepoUrl = React.forwardRef(
               </Text>
             ) : (
               <Text size={1} muted>
-                Cannot find repository.
+                Cannot find repository. {JSON.stringify(queryRes)}
               </Text>
             )}
           </Box>

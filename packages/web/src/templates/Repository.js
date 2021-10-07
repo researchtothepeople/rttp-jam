@@ -157,7 +157,7 @@ export const query = graphql`
         }
       }
       descriptionSource
-      _rawBody
+      _rawBody(resolveReferences: { maxDepth: 2 })
     }
     github @include(if: $withGitHubReadme) {
       resource(url: $repositoryUrl) {
