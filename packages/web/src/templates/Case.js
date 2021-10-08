@@ -172,7 +172,7 @@ export const query = graphql`
       caseDataTypes {
         value
       }
-      _rawBio
+      _rawBio(resolveReferences: { maxDepth: 2 })
     }
     repositories: allSanityRepository(
       filter: { studyCase: { _id: { eq: $studyCaseId } } }

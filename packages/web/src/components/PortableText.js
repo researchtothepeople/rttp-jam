@@ -2,6 +2,7 @@ import React from "react"
 import BasePortableText from "@sanity/block-content-to-react"
 import { getGatsbyImageData } from "gatsby-source-sanity"
 import { GatsbyImage } from "gatsby-plugin-image"
+import File from "./File"
 
 const sanityConfig = {
   projectId: process.env.GATSBY_SANITY_PROJECT_ID,
@@ -25,7 +26,7 @@ const serializers = {
       )
     },
     file: ({ node }) => {
-      return <a href={node.asset.url}>{node.asset.originalFilename}</a>
+      return <File href={node.asset.url}>{node.asset.originalFilename}</File>
     },
   },
 }

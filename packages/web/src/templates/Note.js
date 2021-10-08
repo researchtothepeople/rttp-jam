@@ -102,7 +102,7 @@ export const query = graphql`
         }
       }
       date
-      _rawBody
+      _rawBody(resolveReferences: { maxDepth: 2 })
     }
   }
 `
