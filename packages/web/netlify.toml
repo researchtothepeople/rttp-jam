@@ -2,10 +2,3 @@
 base = "packages/web"
 command = "yarn workspace web build"
 publish = "public"
-
-[[plugins]]
-package = "@netlify/plugin-gatsby"
-
-[functions]
-directory = "src/api"
-
