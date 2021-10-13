@@ -5,6 +5,7 @@ module.exports = {
     title: "RTTP Jam",
   },
   plugins: [
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-gatsby-cloud`,
     {
       resolve: "gatsby-source-filesystem",
