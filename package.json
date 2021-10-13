@@ -4,13 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {
-    "start": "FORCE_COLOR=1 lerna run start --parallel",
-    "clean:web": "FORCE_COLOR=1 lerna run clean --stream --scope web",
-    "deploy:gql": "FORCE_COLOR=1 lerna run deploy:gql --stream --scope cms",
-    "bootstrap:cms": "FORCE_COLOR=1 lerna bootstrap --scope cms",
-    "deploy:cms": "FORCE_COLOR=1 lerna run deploy:cms --stream --scope cms"
-  },
+  "scripts": {},
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
@@ -28,6 +22,7 @@
   },
   "devDependencies": {
     "@sanity/cli": "^2.13.0",
+    "@types/react": "^17.0.29",
     "@types/styled-components": "^5.1.15",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -36,7 +31,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "lerna": "^4.0.0",
     "prettier": "^2.2.1"
-  }
+  },
+  "packageManager": "yarn@3.0.2"
 }

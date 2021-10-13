@@ -2,15 +2,15 @@
   "name": "cms",
   "version": "0.1.0-alpha.0",
   "private": true,
-  "description": "Sanity CMS UI for the RTTP results page.",
+  "description": "Sanity Studio UI for the RTTP results page.",
   "scripts": {
     "start": "sanity start",
-    "test": "sanity check",
     "deploy:gql": "sanity graphql deploy --no-playground",
-    "deploy:cms": "sanity deploy"
+    "deploy": "sanity deploy"
   },
   "dependencies": {
     "@sanity/base": "^2.13.0",
+    "@sanity/cli": "^2.21.0",
     "@sanity/code-input": "^2.13.0",
     "@sanity/color-input": "^2.13.0",
     "@sanity/components": "^2.13.0",
