@@ -21,7 +21,6 @@
     "semi": false
   },
   "devDependencies": {
-    "@sanity/cli": "^2.13.0",
     "@types/react": "^17.0.29",
     "@types/styled-components": "^5.1.15",
     "eslint": "^7.32.0",

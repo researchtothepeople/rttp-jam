@@ -169,3 +169,6 @@ Temporary Items
 
 # sftp configuration file
 sftp-config.json
+
+# Local Netlify folder
+.netlify
