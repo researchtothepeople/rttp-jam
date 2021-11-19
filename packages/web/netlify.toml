@@ -1,4 +1,0 @@
-[build]
-base = "packages/web"
-command = "gatsby build"
-publish = "public"
