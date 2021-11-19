@@ -4,10 +4,13 @@ import styled, { css } from "styled-components"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { RiArrowRightSLine as Chevron } from "react-icons/ri"
 import { RiSearchLine as SearchIcon } from "react-icons/ri"
+import Layout from "../components/Layout"
+import Header from "../components/Header"
 
 const Index = ({ data }) => {
   return (
-    <>
+    <Layout>
+      <Header />
       <Main>
         <div
           css={css`
@@ -129,7 +132,7 @@ const Index = ({ data }) => {
           <a href="https://www.sanity.io/">Sanity.io</a>
         </div>
       </Footer>
-    </>
+    </Layout>
   )
 }
 

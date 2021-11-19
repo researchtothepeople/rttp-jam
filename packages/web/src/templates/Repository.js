@@ -7,6 +7,8 @@ import imgLinks from "@pondorasti/remark-img-links"
 import gfm from "remark-gfm"
 import raw from "rehype-raw"
 import sanitize from "rehype-sanitize"
+import Layout from "../components/Layout"
+import Header from "../components/Header"
 
 const Repository = ({ data: { repository, github = null } }) => {
   const githubText =
@@ -14,124 +16,128 @@ const Repository = ({ data: { repository, github = null } }) => {
       github?.resource?.object?.text) ||
     null
   return (
-    <div
-      css={css`
-        max-width: 960px;
-        padding: 2rem;
-        margin: auto;
-        img {
-          max-width: 100%;
-        }
-      `}
-    >
-      <nav
+    <Layout>
+      <Header />
+
+      <div
         css={css`
-          padding: 1rem 0;
-          border-bottom: 1px solid #eee;
+          max-width: 960px;
+          padding: 2rem;
+          margin: auto;
+          img {
+            max-width: 100%;
+          }
         `}
       >
-        <Link to="/">Results</Link>
-        {" / "}
-        {repository?.studyCase && (
-          <Link to={"/" + repository?.studyCase?.slug?.current}>
-            {repository?.studyCase?.name}: {repository?.studyCase?.topic}
-          </Link>
-        )}
-        {" / Results"}
-      </nav>
-      <main>
-        <div
+        <nav
           css={css`
-            display: grid;
-            grid-template-columns: 3fr 1fr;
+            padding: 1rem 0;
             border-bottom: 1px solid #eee;
           `}
         >
-          <h1
-            css={css`
-              font-size: 1.75rem;
-              line-height: 1.2;
-              margin: 1rem 0;
-            `}
-          >
-            {repository.projectTitle}
-          </h1>
+          <Link to="/">Results</Link>
+          {" / "}
+          {repository?.studyCase && (
+            <Link to={"/" + repository?.studyCase?.slug?.current}>
+              {repository?.studyCase?.name}: {repository?.studyCase?.topic}
+            </Link>
+          )}
+          {" / Results"}
+        </nav>
+        <main>
           <div
             css={css`
-              border-left: 1px solid #eee;
-              padding-top: 20px;
-              padding-bottom: 20px;
-              padding-left: 24px;
-              margin-left: 24px;
-            `}
-          >
-            {repository.authors?.map((author) => (
-              <div key={author.name}>
-                {author.name}
-                {author.affiliation && (
-                  <span
-                    css={css`
-                      font-size: 0.5em;
-                      margin-left: 1em;
-                    `}
-                  >
-                    {author.affiliation}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-        {repository.repositoryUrl && (
-          <div
-            css={css`
-              padding: 1rem 0;
+              display: grid;
+              grid-template-columns: 3fr 1fr;
               border-bottom: 1px solid #eee;
             `}
           >
-            <a href={repository.repositoryUrl}>GitHub Repository</a>
+            <h1
+              css={css`
+                font-size: 1.75rem;
+                line-height: 1.2;
+                margin: 1rem 0;
+              `}
+            >
+              {repository.projectTitle}
+            </h1>
+            <div
+              css={css`
+                border-left: 1px solid #eee;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 24px;
+                margin-left: 24px;
+              `}
+            >
+              {repository.authors?.map((author) => (
+                <div key={author.name}>
+                  {author.name}
+                  {author.affiliation && (
+                    <span
+                      css={css`
+                        font-size: 0.5em;
+                        margin-left: 1em;
+                      `}
+                    >
+                      {author.affiliation}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        )}
-        <div
-          css={css`
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            padding: 1rem 0;
-          `}
-        >
-          <div>
-            {/* <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              children={repository.description}
-            /> */}
-            {githubText && (
-              <ReactMarkdown
-                children={githubText.replace(/\/blob\//g, "/raw/")}
-                disallowedElements={["h1"]}
-                remarkPlugins={[
-                  [
-                    imgLinks,
-                    {
-                      absolutePath: repository.repositoryUrl + "/raw/master/",
-                    },
-                  ],
-                  gfm,
-                  // math
-                ]}
-                rehypePlugins={[
-                  raw,
-                  // katex
-                  sanitize,
-                ]}
-              />
-            )}
-            {repository.descriptionSource === "manual" && (
-              <PortableText blocks={repository._rawBody} />
-            )}
+          {repository.repositoryUrl && (
+            <div
+              css={css`
+                padding: 1rem 0;
+                border-bottom: 1px solid #eee;
+              `}
+            >
+              <a href={repository.repositoryUrl}>GitHub Repository</a>
+            </div>
+          )}
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: 3fr 1fr;
+              padding: 1rem 0;
+            `}
+          >
+            <div>
+              {/* <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                children={repository.description}
+              /> */}
+              {githubText && (
+                <ReactMarkdown
+                  children={githubText.replace(/\/blob\//g, "/raw/")}
+                  disallowedElements={["h1"]}
+                  remarkPlugins={[
+                    [
+                      imgLinks,
+                      {
+                        absolutePath: repository.repositoryUrl + "/raw/master/",
+                      },
+                    ],
+                    gfm,
+                    // math
+                  ]}
+                  rehypePlugins={[
+                    raw,
+                    // katex
+                    sanitize,
+                  ]}
+                />
+              )}
+              {repository.descriptionSource === "manual" && (
+                <PortableText blocks={repository._rawBody} />
+              )}
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </Layout>
   )
 }
 

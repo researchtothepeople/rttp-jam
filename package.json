@@ -4,7 +4,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {},
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
@@ -32,5 +31,5 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.2.1"
   },
-  "packageManager": "yarn@3.0.2"
+  "packageManager": "yarn@3.1.0"
 }

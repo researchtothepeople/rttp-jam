@@ -38,6 +38,7 @@ const Global = css`
     font-size: 16px;
     letter-spacing: 0.01em;
     color: var(--FG1);
+    background: var(--BG0);
   }
 
   h1,
