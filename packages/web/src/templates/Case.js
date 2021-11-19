@@ -3,134 +3,142 @@ import { graphql, Link } from "gatsby"
 import styled, { css } from "styled-components"
 import BlockContent from "@sanity/block-content-to-react"
 import { GatsbyImage } from "gatsby-plugin-image"
+import Layout from "../components/Layout"
+import Header from "../components/Header"
 
 const Case = ({ data: { studyCase, repositories, notes } }) => {
   return (
-    <div
-      css={css`
-        max-width: 960px;
-        padding: 2rem;
-        margin: auto;
-      `}
-    >
-      <header>
-        <nav
-          css={css`
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
-          `}
-        >
-          <Link to="/">Results</Link>
-        </nav>
-      </header>
-      <section
+    <Layout>
+      <Header />
+
+      <div
         css={css`
-          display: grid;
-          margin-top: 3rem;
-          grid-template-columns: 160px 1fr;
-          gap: 40px;
+          max-width: 960px;
+          padding: 2rem;
+          margin: auto;
         `}
       >
-        <div>
-          {studyCase.photo && (
-            <ProfilePicture
-              image={studyCase.photo.asset.gatsbyImageData}
-              alt={`A photo of ${studyCase.name}.`}
-              $shouldCrop={studyCase.type === "person"}
-            />
-          )}
-          {studyCase.caseDataTypes.length > 0 && (
-            <div
-              css={css`
-                margin-top: 3rem;
-                border-top: 1px solid #eee;
-                font-size: 0.875rem;
-                color: var(--FG2);
-              `}
-            >
-              <h2
+        <header>
+          <nav
+            css={css`
+              padding: 1rem 0;
+              border-bottom: 1px solid #eee;
+            `}
+          >
+            <Link to="/">Results</Link>
+          </nav>
+        </header>
+        <section
+          css={css`
+            display: grid;
+            margin-top: 3rem;
+            grid-template-columns: 160px 1fr;
+            gap: 40px;
+          `}
+        >
+          <div>
+            {studyCase.photo && (
+              <ProfilePicture
+                image={studyCase.photo.asset.gatsbyImageData}
+                alt={`A photo of ${studyCase.name}.`}
+                $shouldCrop={studyCase.type === "person"}
+              />
+            )}
+            {studyCase.caseDataTypes.length > 0 && (
+              <div
                 css={css`
-                  font-size: 1em;
-                  margin-bottom: 0.25em;
+                  margin-top: 3rem;
+                  border-top: 1px solid #eee;
+                  font-size: 0.875rem;
+                  color: var(--FG2);
                 `}
               >
-                Available Data
-              </h2>
-              <p>{studyCase.caseDataTypes.flatMap(Object.values).join(", ")}</p>
-            </div>
-          )}
-        </div>
-        <div>
-          <h1
-            css={css`
-              margin-top: 0;
-            `}
-          >
-            {studyCase.name}
-            <br />
-            <span
+                <h2
+                  css={css`
+                    font-size: 1em;
+                    margin-bottom: 0.25em;
+                  `}
+                >
+                  Available Data
+                </h2>
+                <p>
+                  {studyCase.caseDataTypes.flatMap(Object.values).join(", ")}
+                </p>
+              </div>
+            )}
+          </div>
+          <div>
+            <h1
               css={css`
-                font-weight: normal;
+                margin-top: 0;
               `}
             >
-              {studyCase.topic}
-            </span>
-          </h1>
-          <BlockContent blocks={studyCase._rawBio} />
-        </div>
-      </section>
-      {repositories.nodes.length > 0 && (
-        <Section>
-          <h2>Results</h2>
-          <ul
-            css={css`
-              list-style: none;
-              padding: 0;
-            `}
-          >
-            {repositories.nodes.map((repository) => (
-              <li key={repository._id}>
-                <Link to={`${repository.slug?.current}`}>
-                  {repository.projectTitle}
-                </Link>
-                <div
+              {studyCase.name}
+              <br />
+              <span
+                css={css`
+                  font-weight: normal;
+                `}
+              >
+                {studyCase.topic}
+              </span>
+            </h1>
+            <BlockContent blocks={studyCase._rawBio} />
+          </div>
+        </section>
+        {repositories.nodes.length > 0 && (
+          <Section>
+            <h2>Results</h2>
+            <ul
+              css={css`
+                list-style: none;
+                padding: 0;
+              `}
+            >
+              {repositories.nodes.map((repository) => (
+                <li key={repository._id}>
+                  <Link to={`${repository.slug?.current}`}>
+                    {repository.projectTitle}
+                  </Link>
+                  <div
+                    css={css`
+                      color: var(--FG2);
+                      font-size: 0.75rem;
+                      margin-left: 1ch;
+                      margin-bottom: 1em;
+                    `}
+                  >
+                    {repository.authors.flatMap(Object.values).join(", ")}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+        {notes.nodes.length > 0 && (
+          <Section>
+            <h2>Notes</h2>
+            <ul
+              css={css`
+                list-style: none;
+                padding: 0;
+              `}
+            >
+              {notes.nodes.map((note) => (
+                <li
+                  key={note._id}
                   css={css`
-                    color: var(--FG2);
-                    font-size: 0.75rem;
-                    margin-left: 1ch;
                     margin-bottom: 1em;
                   `}
                 >
-                  {repository.authors.flatMap(Object.values).join(", ")}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
-      {notes.nodes.length > 0 && (
-        <Section>
-          <h2>Notes</h2>
-          <ul
-            css={css`
-              list-style: none;
-              padding: 0;
-            `}
-          >
-            {notes.nodes.map((note) => (
-              <li
-                key={note._id}
-                css={css`
-                  margin-bottom: 1em;
-                `}
-              >
-                <Link to={`${note.slug?.current}`}>{note.title}</Link>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
-    </div>
+                  <Link to={`${note.slug?.current}`}>{note.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+      </div>
+    </Layout>
   )
 }
 

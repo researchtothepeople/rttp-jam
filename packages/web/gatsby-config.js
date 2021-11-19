@@ -47,6 +47,27 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: process.env.AIRTABLE_API_KEY,
+        concurrency: 5,
+        tables: [
+          {
+            baseId: `appMB6P1AlDkbfsnf`,
+            tableName: `Data Type`,
+            tableView: `Grid view`,
+            tableLinks: [`Sample Type`],
+          },
+          {
+            baseId: `appMB6P1AlDkbfsnf`,
+            tableName: `Sample Type`,
+            tableView: `Grid view`,
+            tableLinks: [`Available Data Types`],
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-algolia`,
       options: {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
@@ -55,15 +76,16 @@ module.exports = {
       },
     },
     "gatsby-plugin-styled-components",
+    "gatsby-plugin-emotion",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    {
-      resolve: `gatsby-plugin-layout`,
-      options: {
-        component: require.resolve(`./src/components/Layout.js`),
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-layout`,
+    //   options: {
+    //     component: require.resolve(`./src/components/Layout.js`),
+    //   },
+    // },
     "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-manifest",
